@@ -7,13 +7,12 @@ const userSchema = mongoose.Schema({
     },
     password: {
         type: String,
-        minlength : 8
+        minlength : 4
     },
     name: {
         type: String,
         maxlength: 50
     },
-    birth: Date,
     gender: {
         type: String,
         maxlength: 10
@@ -23,6 +22,7 @@ const userSchema = mongoose.Schema({
         trim: true, // trim은 빈칸을 없애주는 용도
         unique: 1 // unique 중복 불가 
     },
+    birth: Date,
     phone: {
         type: Number,
         maxlength: 11
