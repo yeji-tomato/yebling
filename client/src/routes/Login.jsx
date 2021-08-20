@@ -6,7 +6,7 @@ import Logo from '../components/Logo';
 import Inner from '../components/Inner';
 import { useDispatch } from 'react-redux';
 import { loginUser } from '../_actions/user_actions';
-
+import { Link } from 'react-router-dom';
 
 export default function Login(props){
 
@@ -41,7 +41,9 @@ export default function Login(props){
     return (
         <div style={bg}>
             <Inner>
-            <Logo />
+            <Link to="/">
+            <Logo>yebling</Logo>
+            </Link>
             <Form
                 onFinish={onFinish}
                 >
@@ -84,28 +86,6 @@ export default function Login(props){
                     </Row>
                 </div>
             </Form>
-            {/* <form onSubmit={onSubmitHandler}>
-                <InputStyle 
-                prefix={<UserOutlined/>} 
-                placeholder="ID"/>
-                <br />
-                <InputStyle 
-                prefix={<LockOutlined />} 
-                type="password"
-                placeholder="PASSWORD" />
-                <br />
-                <Button>Login</Button>
-                <div>
-                <Divider />
-                    <Row justify="center">
-                        <Col>회원가입</Col>
-                            &nbsp;|&nbsp;
-                        <Col>아이디 찾기</Col>  
-                            &nbsp;|&nbsp;
-                        <Col>비밀번호 찾기</Col> 
-                    </Row>
-                </div>
-            </form> */}
             </Inner>
         </div>
     )

@@ -1,15 +1,14 @@
-import { useEffect } from 'react' 
-import axios from 'axios'
+import MenuBar from "../components/MenuBar";
+import Bottom from "../components/Bottom";
+import { Layout } from 'antd';
 
 export default function Home(){
-    useEffect(() => {
-        axios.get('/api/hello')
-        .then(response => console.log(response))
-    }, [])
-
+    const { Content } = Layout;
     return (
         <div>
-            <h1>Home</h1>
+            <MenuBar/>
+            <Content>Home</Content>
+            <Bottom />
         </div>
     )
 }
