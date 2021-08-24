@@ -18,10 +18,6 @@ mongoose.connect(config.mongoURI,{
 .catch(err => console.log(err))
 
 
-app.get('/', (req, res) => res.send('Hello World!'))
-
-app.get('/api/hello', (req, res) => res.send("안녕하세요~서버와 통신중 "))
-
 app.post('/api/users/register', (req, res) =>{
     // 회원 가입 할 때 필요한 정보들을 client에서 가져오면
     // 그것들을 데이터베이스에 넣어준다.
@@ -29,14 +25,38 @@ app.post('/api/users/register', (req, res) =>{
     //     id: "hello",
     //     password : "password"
     // }
-    const user = new User(req.body)
-    user.save((err, userInfo) => {
-        if(err) return res.json({ success: false, err })
-        return res.status(200).json({
-            success: true
+    
+    User.findOne({id: req.body.id} , (err, user) => {
+        if(user){
+            return res.json({
+                idcheckSuccess: false,
+                message: "해당되는 아이디가 존재합니다."
+            })
+        }
+        const userReg = new User(req.body)
+        userReg.save((err, userInfo) => {
+            if(err) return res.json({ 
+                success: false, 
+                message: "회원가입에 실패하였습니다😰",
+                err
+             })
+            return res.status(200).json({
+                success: true
+            })
         })
     })
 })
+
+// app.get('/api/users/checkid', (req, res) => {
+//     User.findOne({id: req.body.id} , (err, user) => {
+//         if(user){
+//             return res.json({
+//                 idcheckSuccess: false,
+//                 message: "해당되는 아이디가 존재합니다."
+//             })
+//         }
+//     })
+// })
 
 app.post('/api/users/login', (req, res) =>{
 
