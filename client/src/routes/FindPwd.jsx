@@ -8,4 +8,4 @@ function FindPwd() {
     )
 }
 
-export default FindPwd
+export default FindPwd;
