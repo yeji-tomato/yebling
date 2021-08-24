@@ -13,7 +13,6 @@ const Logo = styled.div`
     ${props => props.center &&
     css`
     @media only screen and (max-width: 576px) {
-        // display: none;
         text-align: left;
         line-height: 60px;
         font-size: 30px;

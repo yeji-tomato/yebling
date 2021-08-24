@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { NavLink } from "react-router-dom";
 import { Layout } from 'antd';
 import Logo from './Logo';
+import { MenuOutlined, CloseOutlined } from '@ant-design/icons';
 
 function MenuBar(){
 
@@ -16,6 +17,7 @@ function MenuBar(){
         background: #F3E9E0;
         padding: 0 25px;
         opacity: .99;
+        z-index: 9;
         ul{
             list-style:none;
             display: flex;
@@ -39,7 +41,6 @@ function MenuBar(){
             display : block;
             padding: 0;
             line-height: 60px;
-            // background: green;
             border-bottom: 1px solid #9A9A9A;
             ul{
                 flex-direction: column;
@@ -53,6 +54,12 @@ function MenuBar(){
             li{
                 width: 100%;
                 text-align: center;
+                &:hover{
+                    background: #CA9E9E;
+                    a{
+                        color: #fff;
+                    }
+                }
             }
         }
     `
@@ -120,7 +127,7 @@ function MenuBar(){
                 </ul>
             </Right>
             <Icon onClick={handleClick}>
-                <i className={click ? "fas fa-times" : "fas fa-bars"}></i>
+                { click ?  <CloseOutlined /> : <MenuOutlined />}
             </Icon>
         </Nav>
     )

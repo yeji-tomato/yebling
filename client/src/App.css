@@ -2,6 +2,9 @@
   font-family: 'Noto Serif KR', serif;
   font-size: 12px;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100vh; 
 }
 .ant-message{
   font-family: 'Noto Serif KR', serif;

@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 const Inner = styled.div`
-height: 100vh;
+height: 100%;
 display: flex;
 align-items: center; /* 수직 정렬 */
 flex-direction: column; /* default: row */

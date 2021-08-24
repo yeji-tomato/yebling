@@ -10,6 +10,7 @@ function Bottom(){
         font-family: 'STIX Two Text', serif;
         font-style: italic;
         font-weight: bold;
+        margin-top: auto;
         a{
             color: #000;
             &:hover{
@@ -17,18 +18,19 @@ function Bottom(){
                 font-weight: bold;
             }
         }
+        @media only screen and (max-width: 768px) {
+            margin-top: 0;
+        }
     `
 
     return(
-        <div>
-            <Bottom>
-            <a
-                href="https://github.com/Lee-ye-ji"
-                target="_black">
-                (c) { new Date().getFullYear() } YEJI
-            </a>
-            </Bottom>
-        </div>
+        <Bottom>
+        <a
+            href="https://github.com/Lee-ye-ji"
+            target="_black">
+            (c) { new Date().getFullYear() } YEJI
+        </a>
+        </Bottom>
     )
 }
 

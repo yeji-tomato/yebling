@@ -5,6 +5,8 @@ import Login from './routes/Login'
 import Register from './routes/Register';
 import Shop from './routes/Shop';
 import About from './routes/About';
+import FindId from './routes/FindId';
+import FindPwd from './routes/FindPwd';
 
 function App() {
   return (
@@ -15,6 +17,8 @@ function App() {
         <Route path="/login" component={Login} />
         <Route path="/shop" component={Shop} />
         <Route path="/about" component={About} />
+        <Route path="/id" component={FindId} />
+        <Route path="/pw" component={FindPwd} />
         <Route path="/" exact component={Home} />
       </Switch>
       </BrowserRouter>

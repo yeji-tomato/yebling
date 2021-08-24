@@ -6,7 +6,8 @@ const jwt = require('jsonwebtoken')
 const userSchema = mongoose.Schema({
     id: {
         type: String,
-        minlength: 4
+        minlength: 4,
+        unique: 1 // unique 중복 불가 
     },
     password: {
         type: String,
@@ -22,8 +23,7 @@ const userSchema = mongoose.Schema({
     },
     email: {
         type: String,
-        trim: true, // trim은 빈칸을 없애주는 용도
-        unique: 1 // unique 중복 불가 
+        trim: true // trim은 빈칸을 없애주는 용도
     },
     birth: Date,
     phone: {

@@ -1,24 +1,45 @@
 import { UserOutlined, LockOutlined  } from '@ant-design/icons';
 import Button from '../components/Button'
-import InputStyle from '../components/InputStyle';
-import { Form, Row, Col, Divider, message } from "antd";
+import { Form, Row, Col, Divider, message, Input } from "antd";
 import Logo from '../components/Logo';
 import Inner from '../components/Inner';
 import { useDispatch } from 'react-redux';
 import { loginUser } from '../_actions/user_actions';
 import { Link } from 'react-router-dom';
+import styled from 'styled-components'
 
 export default function Login(props){
 
     const bg = {
-        background: '#F3E9E0'
+        background: '#F3E9E0',
+        height: '100%'
     }
 
-    // const onSubmitHandler = (e, values) => {
-    //     e.preventDefault(); // 페이지 재로딩 방지
+    const InputStyle = styled(Input)`
+        width : 300px;
+        padding: 10px;
+        // background: transparent;
+        // border: 1px solid #000;
+        &:hover{
+            color: #7B2A2A;
+        }
+        .ant-input{
+            // background: transparent;
+        }
+        @media only screen and (max-width: 576px) {
+            width: 250px;
+        }
+    `
 
-    //     console.log(values)
-    // }
+    const RowStyle = styled(Row)`
+        a{
+            color: #000;
+            &:hover{
+                color: #7B2A2A;
+            }
+        }
+        
+    `
 
     const dispatch = useDispatch();
 
@@ -75,17 +96,23 @@ export default function Login(props){
                     placeholder="PASSWORD" />
                 </Form.Item>
                 <Button>Login</Button>
-                <div>
-                <Divider />
-                    <Row justify="center">
-                        <Col>회원가입</Col>
-                            &nbsp;|&nbsp;
-                        <Col>아이디 찾기</Col>  
-                            &nbsp;|&nbsp;
-                        <Col>비밀번호 찾기</Col> 
-                    </Row>
-                </div>
             </Form>
+            <div>
+                <Divider />
+                    <RowStyle justify="center">
+                        <Col>
+                            <Link to="/register">회원가입</Link>
+                        </Col>
+                            &nbsp;|&nbsp;
+                        <Col>
+                            <Link to="/id">아이디 찾기</Link>
+                        </Col>  
+                            &nbsp;|&nbsp;
+                        <Col>
+                            <Link to="/pw">비밀번호 찾기</Link>
+                        </Col> 
+                    </RowStyle>
+            </div>
             </Inner>
         </div>
     )

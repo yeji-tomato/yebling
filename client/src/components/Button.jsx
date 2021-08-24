@@ -16,6 +16,9 @@ const Button = styled.button`
         background: #CB7474;
         color: #000;
     }
+    @media only screen and (max-width: 576px) {
+        width: 250px;
+    }
 
     ${props => props.white && 
     css`
