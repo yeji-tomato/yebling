@@ -1,28 +1,34 @@
 const express = require('express')
 const app = express()
 const cookieParser = require('cookie-parser')
-const session = require('express-session')
 const config = require('./config/key')
 const { auth } = require('./middleware/auth')
 const { User } = require('./models/User')
+const session = require('express-session')
+
 
 // application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true })) 
 // application/json
 app.use(express.json())
-app.use(cookieParser())
-// app.use(session({
-//     secret: 'yebling',
-//     resave: false,
-//     saveUninitialized: true
-// }))
+app.use(cookieParser('yebling'))
 
 const mongoose = require('mongoose')
 mongoose.connect(config.mongoURI,{
-    useNewUrlParser : true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: false
+    useNewUrlParser : true, 
+    useUnifiedTopology: true, 
+    useCreateIndex: true, 
+    useFindAndModify: false
 }).then(() => console.log('MongoDB Connected...'))
 .catch(err => console.log(err))
 
+app.use(session({
+    secret: 'yebling',
+    resave: false,
+    saveUninitialized: true,
+    store:require('mongoose-session')(mongoose),  // session 저장 장소 (Mongoose를 이용하여 Mongodb로 설정)
+    cookie:{maxAge:(3.6e+6)*24} // 24시간 뒤 만료(자동 삭제)
+}))
 
 app.post('/api/users/register', (req, res) =>{
     // 회원 가입 할 때 필요한 정보들을 client에서 가져오면
@@ -50,7 +56,6 @@ app.post('/api/users/register', (req, res) =>{
                 success: true
             })
         })
-        console.log(err)
     })
 })
 
@@ -82,12 +87,28 @@ app.post('/api/users/login', (req, res) =>{
             
             // 3. 비밀번호까지 맞다면 토큰을 생성하기 
             user.generateToken((err, user) => {
-                if(err) return res.status(400).send(err)
+                if(err){
+                    return res.status(400).send(err)
+                }else{
+                    req.session.user = {
+                        id: user.id,
+                        role: user.role,
+                        x_auth: user.token
+                    }
+                    console.log(req.session.user)
+                    req.session.save(err => {if(err) console.log(err)})
+                    return res.status(200).json({ loginSuccess: true })
 
                 // 토큰을 저장한다. -> 쿠키에(cookie-parser download)
-                res.cookie('x_auth', user.token)
-                .status(200)
-                .json({ loginSuccess: true, userId: user._id })
+                // res.cookie('x_auth', user.token)
+                // .status(200)
+                // .json({ loginSuccess: true, userId: user._id })
+                }
+
+                // 토큰을 저장한다. -> 쿠키에(cookie-parser download)
+                // res.cookie('x_auth', user.token)
+                // .status(200)
+                // .json({ loginSuccess: true, user: req.session.user })
                 })         
         })
     })
@@ -102,27 +123,53 @@ app.get('/api/users/auth', auth, (req, res) => {
         _id: req.user._id,
         isAdmin: req.user.role === 0 ? false : true,
         isAuth : true,
-        id: req.user.id,
+        id: req.user.id
         // name: req.user.name,
         // gender: req.user.gender,
         // email: req.user.email,
         // birth: req.user.birth,
         // phone: req.user.phone,
         // role: req.user.role,
-        // image: req.user.image
     })
 })
 
+// app.get('/api/users/logout', auth, (req, res) => {
+//     User.findOneAndUpdate({ _id: req.user._id}, 
+//     { token : "" }
+//     ,(err, user) => {
+//         if (err) return res.json({ success :false, err})
+//         return res.status(200).send({
+//             success: true
+//         })
+//     })
+// })
+
+// app.get('/api/users/logout', (req, res) => {
+//     User.findOneAndUpdate({ id: req.user.id }, (err, user) => {
+//         if(req.session.user){
+//             req.session.destroy();
+//             return res.status(200).send({
+//                 success: true
+//             })
+//         }else{
+//             return res.json({ success :false, err})
+//         }
+//     })
+// })
+
 app.get('/api/users/logout', auth, (req, res) => {
     User.findOneAndUpdate({ _id: req.user._id}, 
-    { token : "" }
+    { token : "" },
+    req.session.destroy()
     ,(err, user) => {
-        if (err) return res.json({ success :false, err})
+        if (err) return res.json({ logoutSuccess :false, err})
         return res.status(200).send({
-            success: true
+            logoutSuccess: true
         })
     })
 })
+
+
 
 const port = 5000
 app.listen(port, () => console.log(`Example app listening on port ${port}`))

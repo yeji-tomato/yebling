@@ -23,7 +23,7 @@ const userSchema = mongoose.Schema({
     },
     email: {
         type: String,
-        trim: true // trim은 빈칸을 없애주는 용도
+        // trim: true // trim은 빈칸을 없애주는 용도
     },
     birth: Date,
     phone: {
@@ -34,7 +34,6 @@ const userSchema = mongoose.Schema({
         type: Number,
         default: 0
     },
-    image: String,
     // token 유효성 검사
     token: {
         type: String
