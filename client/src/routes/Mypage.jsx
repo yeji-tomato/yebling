@@ -1,84 +1,23 @@
-import { Form, Input, DatePicker, Radio, message } from 'antd';
-import Logo from '../components/Logo';
+import MenuBar from "../components/MenuBar";
+import Bottom from "../components/Bottom";
 import Inner from '../components/Inner';
-import { Link } from 'react-router-dom';
+import { Form, Input, DatePicker, Radio } from 'antd';
 import Button from '../components/Button';
-import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
-import { registerUser } from '../_actions/user_actions';
 import { withRouter } from "react-router-dom";
 
-function Register(props){
+function Mypage() {
 
-    const BgDiv = styled.div`
-        background: #F3E9E0;
-        height: 100%;
-        @media only screen and (max-width: 576px) {
-            height: 170vh;
-        }
-    `
-    const [form] = Form.useForm();
-
-    const formItemLayout = {
-        labelCol: {
-          xs: {
-            span: 24,
-          },
-          sm: {
-            span: 8,
-          },
-        },
-        wrapperCol: {
-          xs: {
-            span: 24,
-          },
-          sm: {
-            span: 16,
-          },
-        },
-      };
-
-      const dispatch = useDispatch();
-
-      const onFinish = (values) => {
-
-          let body = {
-              id: values.id,
-              password: values.password,
-              name: values.name,
-              gender: values.gender,
-              email: values.email,
-              birth: values['birth'].format('YYYY-MM-DD'),
-              phone: values.phone
-          }
-
-          console.log(body)
-
-          dispatch(registerUser(body))
-              .then(response => {
-                  if(response.payload.success){
-                      message.success('성공적으로 회원가입이 완료되었습니다!😆');
-                      props.history.push('/login')
-                  }else{
-                    //   message.warning('회원가입에 실패하였습니다.😰');
-                      message.warning(response.payload.message);
-                  }
-              })
-  
-      };
-
+    
     return (
-        <BgDiv>
+        <div>
+            <MenuBar/>
             <Inner>
-            <Link to="/">
-            <Logo>yebling</Logo>
-            </Link>
             <Form 
             style={{margin: '20px'}}
-            {...formItemLayout}
-            form={form}
+            // {...formItemLayout}
+            // form={form}
             initialValues = {{gender: 'female'}}
-            onFinish={onFinish}
+            // onFinish={onFinish}
             >
                 <Form.Item
                     name="id"
@@ -221,11 +160,12 @@ function Register(props){
           }}
         />
       </Form.Item>
-      <Button style={{width: '100%' }}>Register</Button>
+      <Button style={{width: '100%' }}>수정하기</Button>
     </Form>
-    </Inner>
-    </BgDiv> 
+            </Inner>
+            <Bottom />
+        </div>
     )
 }
 
-export default withRouter(Register)
+export default withRouter(Mypage);

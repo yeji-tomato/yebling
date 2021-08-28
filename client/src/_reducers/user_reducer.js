@@ -1,6 +1,7 @@
 import {
     LOGIN_USER, 
-    REGISTER_USER
+    REGISTER_USER,
+    AUTH_USER
 } from '../_actions/types'
 
 
@@ -11,7 +12,8 @@ export default function user_reducer(state = {}, action) {
             // break;
         case REGISTER_USER:
             return { ...state, idcheckSuccess: action.payload }
-        
+        case AUTH_USER:
+            return { ...state, userData: action.payload }
             // case REGISTER_USER:
         //     return { ...state, register: action.payload }
         //     break;

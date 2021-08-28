@@ -7,8 +7,9 @@ import { useDispatch } from 'react-redux';
 import { loginUser } from '../_actions/user_actions';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components'
+import { withRouter } from "react-router-dom";
 
-export default function Login(props){
+function Login(props){
 
     const bg = {
         background: '#F3E9E0',
@@ -117,3 +118,5 @@ export default function Login(props){
         </div>
     )
 }
+
+export default withRouter(Login);

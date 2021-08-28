@@ -5,8 +5,9 @@ import { SwapRightOutlined } from '@ant-design/icons';
 import path from '../image/mainPhoto.jpg';
 import { Link } from 'react-router-dom';
 import Inner from '../components/Inner';
+import { withRouter } from "react-router-dom";
 
-export default function Home(){
+function Home(){
 
     const Content =  styled.div`
         width: 100%;
@@ -123,3 +124,5 @@ export default function Home(){
         </>
     )
 }
+
+export default withRouter(Home);

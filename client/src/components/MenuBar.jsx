@@ -1,11 +1,13 @@
-import { useState } from "react";
 import styled from 'styled-components'
-import { NavLink } from "react-router-dom";
 import { Layout } from 'antd';
 import Logo from './Logo';
 import { MenuOutlined, CloseOutlined } from '@ant-design/icons';
+import { NavLink } from "react-router-dom";
+import { useState } from "react";
+import AuthMenu from './AuthMenu';
 
 function MenuBar(){
+
 
     const { Header } = Layout;
     const Nav = styled(Header)`
@@ -47,9 +49,6 @@ function MenuBar(){
                 align-items: flex-start;
                 background: #F3E9E0;
                 opacity: 0;
-                &.active{
-                    opacity: 1;
-                }
             }
             li{
                 width: 100%;
@@ -60,6 +59,9 @@ function MenuBar(){
                         color: #fff;
                     }
                 }
+            }
+            .active ul{
+                opacity: 1;
             }
         }
     `
@@ -73,7 +75,11 @@ function MenuBar(){
     }
     `
 
-    const Right = styled.div``
+    const Right = styled.div`
+    @media only screen and (max-width: 576px) {
+        
+    }
+    `
 
     const activeStyle = { 
         color: "#7B2A2A",
@@ -97,10 +103,11 @@ function MenuBar(){
 
      const handleClick = () => setClick(!click);
 
+
     return(
         <Nav>
-            <Left>
-                <ul className={click ? "active" : "nav-menu"}>
+            <Left className={click ? "active" : "nav-menu"}>
+                <ul>
                     <li>
                         <NavLink to="/" exact activeStyle={activeStyle} >Home</NavLink>
                     </li>
@@ -115,17 +122,9 @@ function MenuBar(){
             <NavLink to="/">
             <Logo center>yebling</Logo>
             </NavLink>
-            <Right>
-                <ul className={click ? "active" : "nav-menu"}>   
-                    <li></li>
-                    <li>
-                        <NavLink to="/login" activeStyle={activeStyle}>Login</NavLink>
-                    </li>
-                    <li>
-                        <NavLink to="/register" activeStyle={activeStyle}>Register</NavLink>
-                    </li>
-                </ul>
-            </Right>
+            <Right className={click ? "active" : "nav-menu"}>
+                <AuthMenu/>
+            </Right>  
             <Icon onClick={handleClick}>
                 { click ?  <CloseOutlined /> : <MenuOutlined />}
             </Icon>
