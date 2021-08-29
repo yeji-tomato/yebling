@@ -127,5 +127,5 @@ app.get('/api/users/logout', auth, (req, res) => {
 })
 
 // const port = 5000
-const port = process.env.PORT || 5000
+const port = process.env.PORT
 app.listen(port, () => console.log(`Example app listening on port ${port}`))
