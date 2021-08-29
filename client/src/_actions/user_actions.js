@@ -5,13 +5,9 @@ import {
     AUTH_USER
 } from './types'
 
-const url = axios.create({
-    baseURL: "https://yebling.herokuapp.com",
-  });
-
 export function loginUser(dataToSubmit){
 
-    const request = url.post('/api/users/login', dataToSubmit)
+    const request = axios.post('/api/users/login', dataToSubmit)
         .then(response => response.data )
     return {
         type: LOGIN_USER,
@@ -31,7 +27,7 @@ export function registerUser(dataToSubmit){
 
 export function auth(){
 
-    const request = url.get('/api/users/auth')
+    const request = axios.get('/api/users/auth')
         .then(response => response.data )
     return {
         type: AUTH_USER,
