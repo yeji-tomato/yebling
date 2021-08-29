@@ -58,8 +58,8 @@ password : pass1234!
 ```
 
 ## 📟 기술정리
-```
-[Front-end](./docs/front.md)
-[Back-end](./docs/back.md)
+
+[Front-end](./docs/front.md)</br>
+[Back-end](./docs/back.md)</br>
 [Deployment](./docs/deployment.md)
-```
+
