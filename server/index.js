@@ -5,17 +5,19 @@ const session = require('express-session')
 const config = require('./config/key')
 const { auth } = require('./middleware/auth')
 const { User } = require('./models/User')
+const cors = require('cors');
+
+const corsOptions = {
+    origin: "https://yebling.netlify.app",
+    credentials: true
+}
 
 // application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true })) 
 // application/json
 app.use(express.json())
 app.use(cookieParser())
-// app.use(session({
-//     secret: 'yebling',
-//     resave: false,
-//     saveUninitialized: true
-// }))
+app.use(cors(corsOptions));
 
 const mongoose = require('mongoose')
 mongoose.connect(config.mongoURI,{
