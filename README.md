@@ -1,5 +1,5 @@
 # yebling
-[React · Node.js · MongoDB] 쇼핑몰 반응형 웹 사이트!
+[React · Node.js · MongoDB] 반응형 쇼핑몰 웹 사이트!
 
 ### 📊 admin
 ```
