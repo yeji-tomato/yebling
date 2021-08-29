@@ -56,3 +56,8 @@ password : pass1234!
 • 결제
 + 추가적으로 내용 작성 예정
 ```
+
+## 📟 기술정리
+[Front-end](./docs/front.md)
+[Back-end](./docs/back.md)
+[Deployment](./docs/deployment.md)
