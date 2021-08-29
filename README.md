@@ -2,7 +2,7 @@
 [React, Node.js, MongoDB] 쥬얼리 쇼핑몰!
 
 ## Deployment / 배포
-- 현재는 로그인, 로그아웃, 회원가입 기능만 완성되어있습니다!
+※ 현재는 로그인, 로그아웃, 회원가입 기능만 완성되어있습니다! <br>
 [YEBLING<br>
 ![image](https://user-images.githubusercontent.com/59958929/131241441-0aa12cef-57a7-4d43-9b7b-5b823b32b48a.png)](https://yebling.netlify.app/)
 
