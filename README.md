@@ -1,5 +1,5 @@
 # yebling
-[React, Node.js, MongoDB] 쥬얼리 쇼핑몰!
+[React, Node.js, MongoDB] 쇼핑몰 웹 사이트!
 
 ### 📊 admin
 ```
