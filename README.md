@@ -61,5 +61,5 @@ password : pass1234!
 
 ◆ [Front-end](./docs/front.md)</br>
 ◆ [Back-end](./docs/back.md)</br>
-◆ [Deployment](./docs/deployment.md)
+◆ [Deployment](./docs/deploy.md)
 
