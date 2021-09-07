@@ -10,6 +10,7 @@ export default function About(){
         backgroundImage: `url(${path})`,
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover', 
+        height: '79vh'
     }
 
     const Technology = styled.div`

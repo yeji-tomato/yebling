@@ -1,5 +1,5 @@
 import { UserOutlined, LockOutlined  } from '@ant-design/icons';
-import Button from '../components/Button'
+import ButtonStyle from '../components/ButtonStyle'
 import { Form, Row, Col, Divider, message, Input } from "antd";
 import Logo from '../components/Logo';
 import Inner from '../components/Inner';
@@ -13,7 +13,7 @@ function Login(props){
 
     const bg = {
         background: '#F3E9E0',
-        height: '100%'
+        height: '100vh'
     }
 
     const InputStyle = styled(Input)`
@@ -96,7 +96,7 @@ function Login(props){
                     type="password"
                     placeholder="PASSWORD" />
                 </Form.Item>
-                <Button>Login</Button>
+                <ButtonStyle>Login</ButtonStyle>
             </Form>
             <div>
                 <Divider />

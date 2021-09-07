@@ -2,7 +2,7 @@ import MenuBar from "../components/MenuBar";
 import Bottom from "../components/Bottom";
 import Inner from '../components/Inner';
 import { Form, Input, DatePicker, Radio } from 'antd';
-import Button from '../components/Button';
+import ButtonStyle from '../components/ButtonStyle';
 import { withRouter } from "react-router-dom";
 
 function Mypage() {
@@ -13,7 +13,7 @@ function Mypage() {
             <MenuBar/>
             <Inner>
             <Form 
-            style={{margin: '20px'}}
+            style={{margin: '50px', height: '65vh'}}
             // {...formItemLayout}
             // form={form}
             initialValues = {{gender: 'female'}}
@@ -160,7 +160,7 @@ function Mypage() {
           }}
         />
       </Form.Item>
-      <Button style={{width: '100%' }}>수정하기</Button>
+      <ButtonStyle style={{width: '100%' }}>수정하기</ButtonStyle>
     </Form>
             </Inner>
             <Bottom />

@@ -2,7 +2,7 @@ import { Form, Input, DatePicker, Radio, message } from 'antd';
 import Logo from '../components/Logo';
 import Inner from '../components/Inner';
 import { Link } from 'react-router-dom';
-import Button from '../components/Button';
+import ButtonStyle from '../components/ButtonStyle';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { registerUser } from '../_actions/user_actions';
@@ -12,7 +12,8 @@ function Register(props){
 
     const BgDiv = styled.div`
         background: #F3E9E0;
-        height: 100%;
+        min-height: 100vh;
+        padding: 50px;
         @media only screen and (max-width: 576px) {
             height: 170vh;
         }
@@ -221,7 +222,7 @@ function Register(props){
           }}
         />
       </Form.Item>
-      <Button style={{width: '100%' }}>Register</Button>
+      <ButtonStyle style={{width: '100%' }}>Register</ButtonStyle>
     </Form>
     </Inner>
     </BgDiv> 

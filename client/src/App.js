@@ -10,7 +10,7 @@ import FindPwd from './routes/FindPwd';
 import { Auth } from './hoc/auth';
 import Mypage from './routes/Mypage';
 import Cart from './routes/Cart';
-import Upload from './routes/Upload';
+import Upload from './routes/UploadPage';
 
 function App() {
   return (

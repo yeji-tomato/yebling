@@ -6,22 +6,9 @@ import path from '../image/mainPhoto.jpg';
 import { Link } from 'react-router-dom';
 import Inner from '../components/Inner';
 import { withRouter } from "react-router-dom";
+import Center from "../components/Center"
 
 function Home(){
-
-    const Content =  styled.div`
-        width: 100%;
-        height: 100%;
-        display : flex;
-        justify-content: center;
-        flex-wrap : wrap;
-        position: relative;
-        align-items: center;
-        @media only screen and (max-width: 576px) {
-            flex-direction: column;
-            // text-align: center;
-        }
-    `
 
     const Vertical = styled.div`
         position: absolute;
@@ -96,7 +83,7 @@ function Home(){
         <>
             <MenuBar/>
                 <Inner>
-                    <Content>
+                    <Center home>
                     <Vertical >
                         <FindText>
                             Find your beauty <br />
@@ -118,7 +105,7 @@ function Home(){
                     including necklaces, rings, <br />
                     earrings, and bracelet.
                     </Text>
-                    </Content>
+                    </Center>
                 </Inner>
             <Bottom />
         </>
