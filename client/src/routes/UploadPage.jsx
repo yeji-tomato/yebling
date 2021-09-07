@@ -19,7 +19,7 @@ function UploadPage() {
         padding: 50px;
         @media only screen and (max-width: 768px) {
             
-        }
+        } 
     ` 
 
     const UploadForm = styled.div`
