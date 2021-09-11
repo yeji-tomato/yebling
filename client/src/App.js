@@ -11,6 +11,7 @@ import { Auth } from './hoc/auth';
 import Mypage from './routes/Mypage';
 import Cart from './routes/Cart';
 import Upload from './routes/UploadPage';
+// import Upload from './routes/FileUpload.jsx'
 
 function App() {
   return (

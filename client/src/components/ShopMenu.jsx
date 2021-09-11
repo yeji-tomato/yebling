@@ -2,24 +2,16 @@ import { Menu, Checkbox, Radio, Space } from 'antd';
 import { useState } from "react";
 import styled from 'styled-components'
 
+const { SubMenu } = Menu;
+const CheckboxGroup = Checkbox.Group;
+const ShopFilter = styled(Menu)`
+  width: 300px;
+  @media only screen and (max-width: 992px) {
+    width: 100%;
+  }
+`
+
 export default function ShopMenu(){
-    const { SubMenu } = Menu;
-    // submenu keys of first level
-    // const rootSubmenuKeys = ['sub1', 'sub2', 'sub4'];
-
-//     const Sider = () => {
-//     const [openKeys, setOpenKeys] = useState(['sub1']);
-
-//     const onOpenChange = keys => {
-//         const latestOpenKey = keys.find(key => openKeys.indexOf(key) === -1);
-//         if (rootSubmenuKeys.indexOf(latestOpenKey) === -1) {
-//         setOpenKeys(keys);
-//         } else {
-//         setOpenKeys(latestOpenKey ? [latestOpenKey] : []);
-//         }
-//     };
-// }   
-  const CheckboxGroup = Checkbox.Group;
 
   const plainOptions = ['NECKLACE', 'EARRINGS', 'RING', 'BRACELET'];
   const defaultCheckedList = [];
@@ -47,11 +39,9 @@ export default function ShopMenu(){
 
   const radioOnChange = e => {
     console.log('radio checked : ', e.target.value);
-    // console.log(radioState)
     setRadioState({
       radioState: e.target.value,
     });
-    // console.log(radioState)
   };
 
   const CheckGroup = styled(CheckboxGroup)`
@@ -64,7 +54,7 @@ export default function ShopMenu(){
 
     return (
       <>
-        <Menu mode="inline" style={{ width: 250 }}>
+        <ShopFilter mode="inline">
           {/* Jewerly */}
           <SubMenu key="Jewerly"  title="Jewerly">
           <div style={{padding: '10px'}}>
@@ -91,7 +81,7 @@ export default function ShopMenu(){
           </Space>
         </Radio.Group>
           </SubMenu>
-        </Menu>
+        </ShopFilter>
         </>
     )
     

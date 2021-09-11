@@ -1,87 +1,101 @@
-import MenuBar from "../components/MenuBar";
-import Bottom from "../components/Bottom";
-import { withRouter } from "react-router-dom";
-import { Layout, Radio, Form, Input, InputNumber } from 'antd';
+import React, { useState } from 'react'
+import { Form, Layout, Radio, Input, InputNumber, message } from 'antd';
 import styled from 'styled-components';
+import MenuBar from "../components/MenuBar";
+import FileUpload from "../components/FileUpload"
 import ButtonStyle from '../components/ButtonStyle';
-import FileUpload from "../components/FileUpload";
-// import React, {useState} from 'react'
+import { withRouter } from "react-router-dom";
+import axios from 'axios';
 
-function UploadPage() {
+const { Content } = Layout;
+const { TextArea } = Input;
+const UploadContent = styled(Content)`
+    padding: 50px; 
+`   
+const UploadForm = styled.div`
+    padding-top: 30px;
+    display: flex;
+    @media only screen and (max-width: 992px) {
+        flex-direction: column;
+    }
+`
+const BtnArea = styled.div`
+    text-align: center;
+    width: 100%;
+    margin-top: 50px;
+`
+const options = [
+    { label: 'NECKLACE', value: 'NECKLACE' },
+    { label: 'EARRINGS', value: 'EARRINGS' },
+    { label: 'RING', value: 'RING' },
+    { label: 'BRACELET', value: 'BRACELET' },
+  ];
 
-    const { Content } = Layout;
-    const { TextArea } = Input;
+function UploadPage(props) {
+
     const [form] = Form.useForm();
+    const [Images, setImages] = useState([])
 
-    // const [Images, setImages] = useState([])
-
-    const UploadContent = styled(Content)`
-        padding: 50px;
-        @media only screen and (max-width: 768px) {
-            
-        } 
-    ` 
-
-    const UploadForm = styled.div`
-        padding-top: 30px;
-        display: flex;
-        @media only screen and (max-width: 992px) {
-            flex-direction: column;
-        }
-    `
-
-    const BtnArea = styled.div`
-        text-align: center;
-        width: 100%;
-        margin-top: 50px;
-        @media only screen and (max-width: 576px) {
-            
-        }
-    `
-
-    function onChange(checkedValues) {
-        console.log('checked = ', checkedValues);
+    const updateImages = (newImages) => {
+        setImages(newImages)
     }
 
-    const options = [
-        { label: 'NECKLACE', value: 'NECKLACE' },
-        { label: 'EARRINGS', value: 'EARRINGS' },
-        { label: 'RING', value: 'RING' },
-        { label: 'WATCHES', value: 'WATCHES' },
-      ];
+    console.log(Images)
 
-      const onRequiredTypeChange = (value) => {
-        console.log('onRequiredTypeChange', value)
-      };
+    const onFinish = (value) => {
 
-    //   const uploadImages = (newImage) => {
-    //     setImages(newImage)
-    //   }
+        if(Images.length === 0){
+            message.warning('이미지를 넣어주세요😰');
+        }else{
+            // 서버에 채운 값들을 request로 보낸다.
+            let body = {
+                images: Images,
+                jetype: value.type,
+                title: value.title,
+                price: value.price,
+                count: value.count,
+                material: value.material,
+                size: value.size,
+                stone: value.stone,
+                details: value.details
+            }
+            // console.log('body', body)
+
+            axios.post('/api/product/upload', body)
+            .then(response => {
+                if(response.data.success){
+                    message.success('상품 업로드에 성공하였습니다!😆');
+                    props.history.push('/shop')
+                }else{
+                    message.warning('상품 업로드에 실패하였습니다.😰');
+                }
+            })
+        }
+    };
 
 
     return (
         <div>
             <MenuBar/>
             <UploadContent>
-                <div>
-                    <h1>
-                        UPLOAD JEWERY
-                    </h1>
-                    <hr />
-                </div>
-                <Form
-                    form={form}
-                    layout="vertical"
-                    onValuesChange={onRequiredTypeChange}
-                >
-                <UploadForm>
-                    {/* img */}
-                    {/* <FileUpload refreshFunction={uploadImages}/> */}
-                    <FileUpload/>
-                    {/* form */}
-                    <div style={{paddingLeft: '30px', width: '100%'}}>
-                        <Form.Item 
-                        name="type"
+            <div>
+                <h1>
+                    UPLOAD JEWERY
+                </h1>
+                <hr />
+            </div>
+
+            <Form 
+             form={form}
+             layout="vertical"
+             onFinish={onFinish}
+            >
+            <UploadForm>
+                {/* DropZone */}
+                <FileUpload refreshFunction={updateImages} />
+                <div style={{paddingLeft: '30px', width: '100%'}}>
+                    <Form.Item 
+                        name="jetype"
                         label="악세사리 타입" 
                         tooltip="예블링은 총 4가지의 타입으로 이루어져있습니다. 맞춰서 작성해주세요!"
                         rules={[
@@ -91,10 +105,10 @@ function UploadPage() {
                             }
                         ]}>
                         <Radio.Group optionType="button"
-                        buttonStyle="solid" options={options} onChange={onChange} />
-                        </Form.Item>
-                        <Form.Item
-                         name="product"
+                        buttonStyle="solid" options={options} />
+                    </Form.Item>
+                    <Form.Item
+                         name="title"
                          label="상품명"
                          rules={[
                             {
@@ -104,8 +118,8 @@ function UploadPage() {
                          ]}
                         >
                         <Input placeholder='RA0087'/>
-                        </Form.Item>
-                        <Form.Item
+                    </Form.Item>
+                    <Form.Item
                          name="price"
                          label="가격"
                          rules={[
@@ -121,8 +135,8 @@ function UploadPage() {
                         parser={price => price.replace(/\$\s?|(,*)/g, '')}
                         style={{width: '100%'}}
                         />
-                        </Form.Item>
-                        <Form.Item
+                    </Form.Item>
+                    <Form.Item
                          name="count"
                          label="수량"
                          rules={[
@@ -134,7 +148,7 @@ function UploadPage() {
                                 if (!value || getFieldValue('count') === 0) {
                                     // return Promise.resolve();
                                     return Promise.reject(new Error('최소 수량 5개부터 입력해주세요!'));
-                                }else if(getFieldValue('count') === 100){
+                                }else if(getFieldValue('count') === 101){
                                     return Promise.reject(new Error('입력하실 수 있는 최대 수량은 100개입니다!'));
                                 }
                 
@@ -144,9 +158,9 @@ function UploadPage() {
                          ]}
                         >
                         <InputNumber min={0} max={100} step={5} placeholder="0" />
-                        </Form.Item>
-                        <h2>KEY SPECIFICATIONS</h2>
-                        <Form.Item
+                    </Form.Item>
+                    <h2>KEY SPECIFICATIONS</h2>
+                    <Form.Item
                          name="material"
                          label="MATERIAL"
                          rules={[
@@ -157,8 +171,8 @@ function UploadPage() {
                          ]}
                         >
                         <Input placeholder='14K Rose Gold'/>
-                        </Form.Item>
-                        <Form.Item
+                    </Form.Item>
+                    <Form.Item
                          name="size"
                          label="SIZE"
                          rules={[
@@ -169,8 +183,8 @@ function UploadPage() {
                          ]}
                         >
                         <Input placeholder='40-42cm (P9.8*12.1mm)'/>
-                        </Form.Item>
-                        <Form.Item
+                    </Form.Item>
+                    <Form.Item
                          name="stone"
                          label="STONE"
                          rules={[
@@ -181,28 +195,30 @@ function UploadPage() {
                          ]}
                         >
                         <Input placeholder='White Topaz, Pink Sapphire, Morganite'/>
-                        </Form.Item>
-                        <Form.Item
-                         name="details"
-                         label="DETAILS">
-                        <TextArea 
+                    </Form.Item>
+                    <Form.Item
+                     name="details"
+                     label="DETAILS"
+                    >
+                     <TextArea 
                         placeholder="은은한 색감의 모거나이트를 감싸는 섬세한 꼬임 
                             디테일과 화사한 핑크 사파이어의 조합이 
                             매력적인 분위기를 연출하는 목걸이" 
                             autoSize={{ minRows: 3 }}
                             showCount maxLength={100} allowClear />
-                        </Form.Item>
-                    </div>
-                </UploadForm>
-                    <BtnArea>
-                        <ButtonStyle>등록하기</ButtonStyle>
-                        <ButtonStyle white>취소하기</ButtonStyle>
-                    </BtnArea>
-                </Form>
+                    </Form.Item>
+                </div>
+            </UploadForm>
+            <BtnArea>
+                <ButtonStyle>등록하기</ButtonStyle>
+                <ButtonStyle white>취소하기</ButtonStyle>
+            </BtnArea>    
+            </Form>
             </UploadContent>
-            <Bottom />
+
+
         </div>
     )
 }
 
-export default withRouter(UploadPage);
+export default withRouter(UploadPage)
