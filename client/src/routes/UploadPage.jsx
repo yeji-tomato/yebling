@@ -22,7 +22,7 @@ const UploadForm = styled.div`
 const BtnArea = styled.div`
     text-align: center;
     width: 100%;
-    margin-top: 50px;
+    margin-top: 50px; 
 `
 const options = [
     { label: 'NECKLACE', value: 'NECKLACE' },
@@ -70,7 +70,7 @@ function UploadPage(props) {
                     message.warning('상품 업로드에 실패하였습니다.😰');
                 }
             })
-        }
+        } 
     };
 
 
@@ -211,7 +211,7 @@ function UploadPage(props) {
             </UploadForm>
             <BtnArea>
                 <ButtonStyle>등록하기</ButtonStyle>
-                <ButtonStyle white>취소하기</ButtonStyle>
+                <ButtonStyle white >취소하기</ButtonStyle>
             </BtnArea>    
             </Form>
             </UploadContent>
