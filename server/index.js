@@ -6,18 +6,18 @@ const config = require('./config/key')
 
 const cors = require('cors');
 
-// const corsOptions = {
-//     origin: "https://yebling.netlify.app",
-//     credentials: true
-// }
+const corsOptions = {
+    origin: "https://yebling.netlify.app",
+    credentials: true
+}
 
 // application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true })) 
 // application/json
 app.use(express.json())
 app.use(cookieParser())
-app.use(cors())
-// app.use(cors(corsOptions));
+// app.use(cors())
+app.use(cors(corsOptions));
 
 const mongoose = require('mongoose')
 mongoose.connect(config.mongoURI,{
@@ -32,6 +32,6 @@ app.use('/api/product', require('./routes/product'));
 
 app.use('/uploads', express.static('uploads'));
 
-const port = 5000
-// const port = 5000 || process.env.PORT
+// const port = 5000
+const port = 5000 || process.env.PORT
 app.listen(port, () => console.log(`Example app listening on port ${port}`))
