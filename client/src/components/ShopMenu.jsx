@@ -5,7 +5,7 @@ import styled from 'styled-components'
 const { SubMenu } = Menu;
 const CheckboxGroup = Checkbox.Group;
 const ShopFilter = styled(Menu)`
-  width: 300px;
+  width: 600px;
   @media only screen and (max-width: 992px) {
     width: 100%;
   }

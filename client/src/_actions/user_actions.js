@@ -2,9 +2,11 @@
 import {
     LOGIN_USER,
     REGISTER_USER,
-    AUTH_USER
+    AUTH_USER,
+    LOGOUT_USER
 } from './types';
-import url from '../utils/axios'
+import { url } from '../utils/axios'
+import { USER_SERVER } from './config';
 
 // const url = axios.create({
 //     baseURL: "https://yebling.herokuapp.com",
@@ -12,7 +14,7 @@ import url from '../utils/axios'
 
 export function loginUser(dataToSubmit){
 
-    const request = url.post('/api/users/login', dataToSubmit)
+    const request = url.post(`${USER_SERVER}/login`, dataToSubmit)
         .then(response => response.data )
     return {
         type: LOGIN_USER,
@@ -22,7 +24,7 @@ export function loginUser(dataToSubmit){
 
 export function registerUser(dataToSubmit){
 
-    const request = url.post('/api/users/register', dataToSubmit)
+    const request = url.post(`${USER_SERVER}/register`, dataToSubmit)
         .then(response => response.data )
     return {
         type: REGISTER_USER,
@@ -32,7 +34,7 @@ export function registerUser(dataToSubmit){
 
 export function auth(){
 
-    const request = url.get('/api/users/auth')
+    const request = url.get(`${USER_SERVER}/auth`)
         .then(response => response.data )
     return {
         type: AUTH_USER,
@@ -40,4 +42,12 @@ export function auth(){
     }
 }
 
+export function logoutUser() {
+    const request = url.get(`${USER_SERVER}/logout`)
+        .then(response => response.data);
 
+    return {
+        type: LOGOUT_USER,
+        payload: request
+    }
+}

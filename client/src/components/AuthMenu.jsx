@@ -1,38 +1,36 @@
 import { UserOutlined, ShoppingCartOutlined, UploadOutlined } from '@ant-design/icons';
 import { useSelector } from "react-redux";
-import axios from 'axios';
 import { message } from 'antd';
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
 import { withRouter } from "react-router-dom";
+import { useDispatch } from 'react-redux';
+import { logoutUser } from '../_actions/user_actions';
+
+const activeStyle = { 
+    color: "#7B2A2A",
+    fontWeight: 'bold'
+ };
 
 function AuthMenu(props){
-    const activeStyle = { 
-        color: "#7B2A2A",
-        fontWeight: 'bold'
-     };
-
-    // const [click, setClick] = useState(false);
-
-    // const handleClick = () => setClick(!click);
-    // console.log(handleClick)
 
     const [login, setLogin] = useState(false);
+    const user = useSelector(state => state.user)
+    const dispatch = useDispatch();
 
     const onClickHandler = () => {
-       axios.get(`/api/users/logout`)
-       .then(response => {
-           if(response.data.success){
-               setLogin(!login);
-               message.success('성공적으로 로그아웃이 완료되었습니다!');
-               props.history.push('/')
-           }else{
-               message.warning('로그아웃에 실패하였습니다.');
-           }
-       })
-    }
 
-    const user = useSelector(state => state.user)
+        dispatch(logoutUser())
+        .then(response => {
+            if(response.payload.success){
+                setLogin(!login);
+                message.success('성공적으로 로그아웃이 완료되었습니다!');
+                props.history.push('/')
+            }else{
+                message.warning('로그아웃에 실패하였습니다.');
+            }
+        })
+    }
 
         if(user.userData && !user.userData.isAuth){
             return(

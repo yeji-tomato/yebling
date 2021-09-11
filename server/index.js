@@ -6,8 +6,19 @@ const config = require('./config/key')
 
 const cors = require('cors');
 
-const corsOptions = {
+// const corsOptions = {
+//     origin: "https://yebling.netlify.app",
+//     credentials: true
+// }
+
+let corsOptions =
+ process.env.NODE_ENV === 'production' ? 
+{
     origin: "https://yebling.netlify.app",
+    credentials: true
+} : 
+{
+    origin: "http://localhost:3000",
     credentials: true
 }
 
@@ -33,5 +44,6 @@ app.use('/api/product', require('./routes/product'));
 app.use('/uploads', express.static('uploads'));
 
 // const port = 5000
-const port = process.env.PORT
+// const port = process.env.PORT
+let port =  process.env.NODE_ENV === 'production' ? process.env.PORT : 5000
 app.listen(port, () => console.log(`Example app listening on port ${port}`))

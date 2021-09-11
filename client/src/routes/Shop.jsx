@@ -7,7 +7,8 @@ import styled from 'styled-components';
 import ShopMenu from "../components/ShopMenu";
 import ButtonStyle from '../components/ButtonStyle';
 import { useState, useEffect } from "react";
-import axios from "axios";
+import { useDispatch } from 'react-redux';
+import { goodsProduct } from '../_actions/product_actions';
 import ImageSlider from "../components/ImageSlider";
 
 const { Content } = Layout;
@@ -29,7 +30,7 @@ export default function Shop(){
     const [Skip, setSkip] = useState(0)
     const [Limit, setLimit] = useState(8)
     const [PostSize, setPostSize] = useState(0)
-
+    const dispatch = useDispatch();
 
     useEffect(() => {
 
@@ -43,19 +44,20 @@ export default function Shop(){
     }, [])
 
     const getProducts = (body) => {
-        axios.post('/api/product/products', body)
-            .then(response => {
-                if(response.data.success){
-                    if(body.loadMore){
-                        setProducts([...Products, ...response.data.productInfo])
+
+        dispatch(goodsProduct(body))
+        .then(response => {
+                    if(response.payload.success){
+                        if(body.loadMore){
+                            setProducts([...Products, ...response.payload.productInfo])
+                        }else{
+                            setProducts(response.payload.productInfo)
+                        }
+                        setPostSize(response.payload.postSize)
                     }else{
-                        setProducts(response.data.productInfo)
+                        message.warning('상품들을 가져오는데 실패하였습니다😰');
                     }
-                    setPostSize(response.data.postSize)
-                }else{
-                    message.warning('상품들을 가져오는데 실패하였습니다😰');
-                }
-         })
+             })
     } 
 
     const loadMoreHandler = () => {
@@ -74,7 +76,7 @@ export default function Shop(){
  
     const renderCards = Products.map((product, index) => {
         
-        console.log(product)
+        //console.log(product)
 
         const CommaPrice = (price) => {
             return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')

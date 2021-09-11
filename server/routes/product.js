@@ -51,7 +51,7 @@ router.post('/upload', (req, res) => {
 
 })
 
-router.post('/products', (req, res) => {
+router.post('/goods', (req, res) => {
     
     // product collection에 들어 있는 모든 상품 정보를 가져오기
 

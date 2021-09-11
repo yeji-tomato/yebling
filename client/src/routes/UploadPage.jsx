@@ -5,7 +5,8 @@ import MenuBar from "../components/MenuBar";
 import FileUpload from "../components/FileUpload"
 import ButtonStyle from '../components/ButtonStyle';
 import { withRouter } from "react-router-dom";
-import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { uploadProduct } from '../_actions/product_actions';
 
 const { Content } = Layout;
 const { TextArea } = Input;
@@ -40,8 +41,8 @@ function UploadPage(props) {
         setImages(newImages)
     }
 
-    console.log(Images)
-
+    // console.log(Images)
+    const dispatch = useDispatch();
     const onFinish = (value) => {
 
         if(Images.length === 0){
@@ -61,15 +62,24 @@ function UploadPage(props) {
             }
             // console.log('body', body)
 
-            axios.post('/api/product/upload', body)
+            // axios.post('/api/product/upload', body)
+            // .then(response => {
+            //     if(response.data.success){
+            //         message.success('상품 업로드에 성공하였습니다!😆');
+            //         props.history.push('/shop')
+            //     }else{
+            //         message.warning('상품 업로드에 실패하였습니다.😰');
+            //     }
+            // })
+            dispatch(uploadProduct(body))
             .then(response => {
-                if(response.data.success){
-                    message.success('상품 업로드에 성공하였습니다!😆');
-                    props.history.push('/shop')
-                }else{
-                    message.warning('상품 업로드에 실패하였습니다.😰');
-                }
-            })
+                    if(response.payload.success){
+                        message.success('상품 업로드에 성공하였습니다!😆');
+                        props.history.push('/shop')
+                    }else{
+                        message.warning('상품 업로드에 실패하였습니다.😰');
+                    }
+                })
         } 
     };
 

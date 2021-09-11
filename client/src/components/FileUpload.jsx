@@ -1,10 +1,12 @@
 import React, {useState} from 'react'
 import Dropzone from 'react-dropzone'
 import backImg from '../image/back_gr_gold.jpg'
-import axios from 'axios'
+// import axios from 'axios'
 import { message, Button } from 'antd'
 import { DeleteOutlined } from '@ant-design/icons';
 import styled from "styled-components";
+import { useDispatch } from 'react-redux';
+import { imageProduct } from '../_actions/product_actions';
 
 const Img = {
     backgroundImage: `url(${backImg})`,
@@ -30,6 +32,7 @@ const Delete =  styled(DeleteOutlined)`
 function FileUpload({refreshFunction}) {
 
     const [Image, setImage] = useState([])
+    const dispatch = useDispatch();
 
     const dropHandler = (files) => {
 
@@ -40,15 +43,16 @@ function FileUpload({refreshFunction}) {
         }
         formData.append("file", files[0])
 
-        axios.post('/api/product/image', formData, config)
-            .then(response => {
-                if(response.data.success){
-                    setImage([...Image, response.data.filePath])
-                    refreshFunction([...Image, response.data.filePath])
+        dispatch(imageProduct(formData, config))
+        .then(response => {
+                if(response.payload.success){
+                    setImage([...Image, response.payload.filePath])
+                    refreshFunction([...Image, response.payload.filePath])
                 }else{
                     message.warning('이미지 저장에 실패하였습니다.');
                 }
             })
+
     }
 
     const deleteHandler = (image) => {
@@ -62,15 +66,15 @@ function FileUpload({refreshFunction}) {
         message.info(`${imgName}가 삭제되었습니다.`);
     }
 
+    let src = process.env.NODE_ENV === 'production' ? `https://yebling.herokuapp.com/` : `http://localhost:5000/`
+
 
     return (
         <div style={{width: '100%', textAlign: 'center'}}>
-
-            {/* <img src={backImg} alt="img" style={{width: '100%', height: '50vw'}} */}
             <div style={Img}>
             {Image.map((image, index) => (
                     <div key={index} style={{position: 'relative'}}>
-                        <img src={`http://localhost:5000/${image}`} alt={`${index}`} 
+                        <img src={`${src}${image}`} alt={`${index}`} 
                         style={{width: '100%', height: '50vw'}}/>
                         <Delete onClick={() => deleteHandler(image)}/>
                     </div>

@@ -1,5 +1,7 @@
 import axios from 'axios'
 
-export default axios.create({
+export let url = process.env.NODE_ENV === 'production' ? 
+axios.create({
     baseURL: "https://yebling.herokuapp.com",
-  });
+  })
+  : axios

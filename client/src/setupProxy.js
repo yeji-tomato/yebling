@@ -4,7 +4,6 @@ module.exports = function(app){
         '/api',
         createProxyMiddleware({
             target: 'http://localhost:5000',
-            // target: 'https://yebling.herokuapp.com',
             changeOrigin: true,
         })
     )
