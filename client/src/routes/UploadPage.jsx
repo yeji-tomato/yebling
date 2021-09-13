@@ -45,13 +45,17 @@ function UploadPage(props) {
     const dispatch = useDispatch();
     const onFinish = (value) => {
 
+        console.log('value',value);
+
+        console.log('jetype', value.jetype);
+
         if(Images.length === 0){
             message.warning('이미지를 넣어주세요😰');
         }else{
             // 서버에 채운 값들을 request로 보낸다.
             let body = {
                 images: Images,
-                jetype: value.type,
+                jetype: value.jetype,
                 title: value.title,
                 price: value.price,
                 count: value.count,

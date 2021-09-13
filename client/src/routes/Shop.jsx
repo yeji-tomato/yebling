@@ -2,18 +2,35 @@ import MenuBar from "../components/MenuBar";
 import Bottom from "../components/Bottom";
 // import LeftSider from "../components/LeftSider";
 import Center from "../components/Center"
-import { Layout, Input, message, Card, Row, Col } from 'antd';
+import { Menu, Layout, Input, message, Card, Row, Col } from 'antd';
 import styled from 'styled-components';
-import ShopMenu from "../components/ShopMenu";
 import ButtonStyle from '../components/ButtonStyle';
 import { useState, useEffect } from "react";
 import { useDispatch } from 'react-redux';
 import { goodsProduct } from '../_actions/product_actions';
 import ImageSlider from "../components/ImageSlider";
+import ShopCheck from '../components/ShopCheck';
+import ShopRadio from '../components/ShopRadio';
+import { jetype } from "../hoc/data";
+
 
 const { Content } = Layout;
 const { Search } = Input;
 const { Meta } = Card;
+const { SubMenu } = Menu;
+
+const ShopFilter = styled(Menu)`
+  width: 300px;
+  @media only screen and (max-width: 992px) {
+    width: 100%;
+  }
+`
+const ShopSubMenu = styled(SubMenu)`
+width: 300px;
+@media only screen and (max-width: 992px) {
+  width: 100%;
+}
+`
 
 const ShopContent = styled.div`
     display: flex;
@@ -30,13 +47,17 @@ export default function Shop(){
     const [Skip, setSkip] = useState(0)
     const [Limit, setLimit] = useState(8)
     const [PostSize, setPostSize] = useState(0)
+    const [Filters, setFilters] = useState({
+        jewerly: [],
+        price: []
+    })
     const dispatch = useDispatch();
 
     useEffect(() => {
 
         let body = {
             skip: Skip,
-            limit: Limit
+            limit: setLimit(Limit)
         }
 
         getProducts(body)
@@ -94,6 +115,25 @@ export default function Shop(){
         </Col>
     })
 
+    const showFilteredResults = (filters) => {
+        
+        let body = {
+            skip: 0,
+            limit: Limit,
+            filters: filters
+        }
+        getProducts(body)
+        setSkip(0)
+    }
+
+    const handleFilters = (filters, category) => {
+
+        const newFilters = { ...Filters }
+        newFilters[category] = filters
+
+        showFilteredResults(newFilters)
+    }
+
 
     
     return (
@@ -104,7 +144,17 @@ export default function Shop(){
                 <Search placeholder="Search" allowClear onSearch={onSearch} style={{ width: 200 }} />
             </div>
             <ShopContent>
-                <ShopMenu/>
+                {/* Filter */}
+                <ShopFilter mode="inline">
+                <ShopSubMenu key="Jewerly"  title="Jewerly">
+                    <ShopCheck list={jetype} handleFilters={filters => handleFilters(filters, "jetype")}/>
+                </ShopSubMenu>
+                <ShopSubMenu key="Price"  title="Price">
+                    <ShopRadio/>
+                </ShopSubMenu>
+                </ShopFilter>
+
+                {/* Content */}
                 <Center style={{ padding: '20px'}}>
                     <Row gutter={[16, 16]}>
                         {/* Cards */}
