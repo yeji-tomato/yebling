@@ -1,8 +1,7 @@
 import MenuBar from "../components/MenuBar";
 import Bottom from "../components/Bottom";
-// import LeftSider from "../components/LeftSider";
 import Center from "../components/Center"
-import { Menu, Layout, Input, message, Card, Row, Col } from 'antd';
+import { Menu, Layout, message, Card, Row, Col } from 'antd';
 import styled from 'styled-components';
 import ButtonStyle from '../components/ButtonStyle';
 import { useState, useEffect } from "react";
@@ -11,11 +10,11 @@ import { goodsProduct } from '../_actions/product_actions';
 import ImageSlider from "../components/ImageSlider";
 import ShopCheck from '../components/ShopCheck';
 import ShopRadio from '../components/ShopRadio';
-import { jetype } from "../hoc/data";
+import { jetype, price } from "../hoc/data";
+import ShopSearch from "../components/ShopSearch";
 
 
 const { Content } = Layout;
-const { Search } = Input;
 const { Meta } = Card;
 const { SubMenu } = Menu;
 
@@ -41,8 +40,6 @@ const ShopContent = styled.div`
 
 export default function Shop(){
 
-    const onSearch = value => console.log(value);
-
     const [Products, setProducts] = useState([])
     const [Skip, setSkip] = useState(0)
     const [Limit, setLimit] = useState(8)
@@ -51,17 +48,16 @@ export default function Shop(){
         jewerly: [],
         price: []
     })
-    const dispatch = useDispatch();
+    const [SearchTerm, setSearchTerm] = useState('')
 
+    const dispatch = useDispatch();
     useEffect(() => {
 
         let body = {
             skip: Skip,
             limit: setLimit(Limit)
         }
-
         getProducts(body)
-
     }, [])
 
     const getProducts = (body) => {
@@ -88,7 +84,8 @@ export default function Shop(){
         let body = {
             skip: skip,
             limit: Limit,
-            loadMore: true
+            loadMore: true,
+            filters: Filters
         }
 
         getProducts(body)
@@ -126,23 +123,54 @@ export default function Shop(){
         setSkip(0)
     }
 
+    const handlePrice = (value) => {
+        const data = price;
+        let array = [];
+
+        for(let key in data){
+            if(data[key].name === value){
+                array = data[key].array;
+            }
+        }
+        return array;
+    }
+
     const handleFilters = (filters, category) => {
 
         const newFilters = { ...Filters }
         newFilters[category] = filters
 
+        console.log('Filters', Filters)
+        console.log('newFilters', newFilters)
+
+        if(category === 'price'){
+            let priceValues = handlePrice(filters)
+            newFilters[category] = priceValues
+        }
+
         showFilteredResults(newFilters)
+        setFilters(newFilters)
     }
 
+    const updateSearchTerm = (newSearchTerm) => {
 
-    
+        let body = {
+            skip: 0,
+            limit: Limit,
+            filters: Filters,
+            searchTerm: newSearchTerm
+        }
+
+        setSkip(0)
+        setSearchTerm(newSearchTerm)
+        getProducts(body)
+    }
+ 
     return (
         <>
             <MenuBar/>
             <Content style={{ padding: '30px' }}>
-            <div style={{ margin: '16px 0', textAlign: 'end' }}>
-                <Search placeholder="Search" allowClear onSearch={onSearch} style={{ width: 200 }} />
-            </div>
+                <ShopSearch refreshFunction={updateSearchTerm} value={SearchTerm}/>
             <ShopContent>
                 {/* Filter */}
                 <ShopFilter mode="inline">
@@ -150,7 +178,7 @@ export default function Shop(){
                     <ShopCheck list={jetype} handleFilters={filters => handleFilters(filters, "jetype")}/>
                 </ShopSubMenu>
                 <ShopSubMenu key="Price"  title="Price">
-                    <ShopRadio/>
+                    <ShopRadio list={price} handleFilters={filters => handleFilters(filters, "price")}/>
                 </ShopSubMenu>
                 </ShopFilter>
 

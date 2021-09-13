@@ -1,31 +1,27 @@
 import React, { useState } from 'react'
 import { Radio, Space } from 'antd';
 
-function ShopRadio() {
-    const radioDefault =  'ANY';
-    const [radioState, setRadioState] = useState(radioDefault);
+function ShopRadio(props) {
+
+    const [radioState, setRadioState] = useState('Any');
     const radioOnChange = e => {
-      console.log('radio checked : ', e.target.value);
-      setRadioState({
-        radioState: e.target.value,
-      });
+      setRadioState(e.target.value)
+      props.handleFilters(e.target.value)
     };
 
     return (
         <div>
-        <Radio.Group onChange={radioOnChange} 
-           buttonStyle={'outline'}
-           defaultValue={radioState}
-          //  options={['인기순', '최신순']}
-          >
-          <Space direction="vertical"
-           style={{padding: '10px'}}>
-            <Radio value='ANY'>ANY</Radio>
-            <Radio value='10만원 이하'>10만원 이하</Radio>
-            <Radio value='10만원 ~ 20만원'>10만원 ~ 20만원</Radio>
-            <Radio value='20만원 이상'>20만원 이상</Radio>
-          </Space>
-        </Radio.Group>
+              <Radio.Group onChange={radioOnChange} 
+              buttonStyle={'outline'}
+              defaultValue={radioState}
+            >
+            <Space direction="vertical"
+              style={{padding: '10px'}}>
+            {props.list && props.list.map((value, index) => (
+              <Radio key={index} value={value.name}>{value.name}</Radio>
+              ))}
+            </Space>
+            </Radio.Group>
         </div>
     )
 }

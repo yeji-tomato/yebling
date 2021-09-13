@@ -34,8 +34,8 @@ router.post('/image', (req, res) => {
 
         return res.json({ 
             success: true, 
-            filePath: 'uploads/' + res.req.file.filename, 
-            fileName: res.req.file.filename  })
+            filePath: 'uploads/' + req.file.filename, 
+            fileName: req.file.filename  })
     })
 
 })
@@ -57,27 +57,49 @@ router.post('/goods', (req, res) => {
 
     let limit = req.body.limit ? parseInt(req.body.limit) : 20;
     let skip = req.body.skip ? parseInt(req.body.skip) : 0;
+    let term = req.body.searchTerm
 
     let findArgs = {};
 
     for(let key in req.body.filters){
         if(req.body.filters[key].length > 0){
-            findArgs[key] = req.body.filters[key];
+
+            if(key === 'price'){
+                findArgs[key] = {
+                    $gte: req.body.filters[key][0],
+                    $lte: req.body.filters[key][1]
+                }
+            }else{
+                findArgs[key] = req.body.filters[key];
+            }
+        
         }
     }
 
     console.log('findArgs',findArgs)
 
-    Product.find(findArgs)
-    .skip(skip)
-    .limit(limit)
-    .exec((err, productInfo) => {
-        if(err) return res.status(400).json({success: false, err})
-        return res.status(200).json({ 
-            success: true, productInfo,
-            postSize: productInfo.length })
-    })
-
+    if(term){
+        Product.find(findArgs)
+        .find({  $text: { $search: term } })
+        .skip(skip)
+        .limit(limit)
+        .exec((err, productInfo) => {
+            if(err) return res.status(400).json({success: false, err})
+            return res.status(200).json({ 
+                success: true, productInfo,
+                postSize: productInfo.length })
+        })
+    }else{
+        Product.find(findArgs)
+        .skip(skip)
+        .limit(limit)
+        .exec((err, productInfo) => {
+            if(err) return res.status(400).json({success: false, err})
+            return res.status(200).json({ 
+                success: true, productInfo,
+                postSize: productInfo.length })
+        })
+    }
 })
 
 
