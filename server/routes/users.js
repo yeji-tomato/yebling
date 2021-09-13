@@ -12,12 +12,18 @@ const { auth } = require('../middleware/auth')
 router.get("/auth", auth, (req, res) => {
     // middleware를 통과 후 이 코드 구문 실행
     // -> Authentication이 true
-    res.status(200).json({
+    if(err) return res.json({ 
+        success: false, 
+        message: "인증에 실패하였습니다😰",
+        err
+    })
+    console.log(err)
+    return res.status(200).json({
         _id: req.user._id,
         isAdmin: req.user.role === 0 ? false : true,
         isAuth : true,
         id: req.user.id,
-    });
+    }); 
 });
 
 router.post("/register", (req, res) => {
