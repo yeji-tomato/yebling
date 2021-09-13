@@ -51,14 +51,15 @@ export default function Shop(){
     const [SearchTerm, setSearchTerm] = useState('')
 
     const dispatch = useDispatch();
+    
     useEffect(() => {
-
         let body = {
             skip: Skip,
             limit: setLimit(Limit)
         }
         getProducts(body)
-    }, [])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     const getProducts = (body) => {
 
