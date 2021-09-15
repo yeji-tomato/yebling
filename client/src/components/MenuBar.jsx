@@ -112,7 +112,7 @@ function MenuBar(){
                         <NavLink to="/" exact activeStyle={activeStyle} >Home</NavLink>
                     </li>
                     <li>
-                        <NavLink to="/Shop" activeStyle={activeStyle}>Shop</NavLink>
+                        <NavLink to="/shop" activeStyle={activeStyle}>Shop</NavLink>
                     </li>
                     <li>
                         <NavLink to="/about" activeStyle={activeStyle}>About</NavLink>

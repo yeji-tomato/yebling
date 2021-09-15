@@ -12,7 +12,7 @@ import ShopCheck from '../components/ShopCheck';
 import ShopRadio from '../components/ShopRadio';
 import { jetype, price } from "../hoc/data";
 import ShopSearch from "../components/ShopSearch";
-
+import { withRouter } from "react-router-dom";
 
 const { Content } = Layout;
 const { Meta } = Card;
@@ -38,7 +38,7 @@ const ShopContent = styled.div`
     }
 `
 
-export default function Shop(){
+function Shop(){
 
     const [Products, setProducts] = useState([])
     const [Skip, setSkip] = useState(0)
@@ -94,8 +94,6 @@ export default function Shop(){
     }
  
     const renderCards = Products.map((product, index) => {
-        
-        //console.log(product)
 
         const CommaPrice = (price) => {
             return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
@@ -106,7 +104,7 @@ export default function Shop(){
         <Card
             style={{ width: 240 , height: 350 }}
             hoverable
-            cover={<ImageSlider images={product.images} />}
+            cover={<a href={`/product/${product._id}`}><ImageSlider images={product.images} /></a>}
         >
             <Meta title={product.title} description={`₩ ${CommaPrice(product.price)}`} />
         </Card>
@@ -140,9 +138,6 @@ export default function Shop(){
 
         const newFilters = { ...Filters }
         newFilters[category] = filters
-
-        console.log('Filters', Filters)
-        console.log('newFilters', newFilters)
 
         if(category === 'price'){
             let priceValues = handlePrice(filters)
@@ -202,3 +197,5 @@ export default function Shop(){
         </>
     )
 }
+
+export default withRouter(Shop);

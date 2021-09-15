@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Form, Layout, Radio, Input, InputNumber, message } from 'antd';
 import styled from 'styled-components';
 import MenuBar from "../components/MenuBar";
+import Bottom from '../components/Bottom';
 import FileUpload from "../components/FileUpload"
 import ButtonStyle from '../components/ButtonStyle';
 import { withRouter } from "react-router-dom";
@@ -64,17 +65,6 @@ function UploadPage(props) {
                 stone: value.stone,
                 details: value.details
             }
-            // console.log('body', body)
-
-            // axios.post('/api/product/upload', body)
-            // .then(response => {
-            //     if(response.data.success){
-            //         message.success('상품 업로드에 성공하였습니다!😆');
-            //         props.history.push('/shop')
-            //     }else{
-            //         message.warning('상품 업로드에 실패하였습니다.😰');
-            //     }
-            // })
             dispatch(uploadProduct(body))
             .then(response => {
                     if(response.payload.success){
@@ -229,7 +219,7 @@ function UploadPage(props) {
             </BtnArea>    
             </Form>
             </UploadContent>
-
+            <Bottom />
 
         </div>
     )

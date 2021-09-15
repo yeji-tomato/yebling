@@ -18,6 +18,8 @@ function AuthMenu(props){
     const user = useSelector(state => state.user)
     const dispatch = useDispatch();
 
+    console.log('menubar', user)
+
     const onClickHandler = () => {
 
         dispatch(logoutUser())

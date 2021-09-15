@@ -11,7 +11,7 @@ import { Auth } from './hoc/auth';
 import Mypage from './routes/Mypage';
 import Cart from './routes/Cart';
 import Upload from './routes/UploadPage';
-// import Upload from './routes/FileUpload.jsx'
+import ProductDetail from './routes/ProductDetail';
 
 function App() {
   return (
@@ -23,8 +23,9 @@ function App() {
         <Route path="/mypage" component={Auth(Mypage, true)}/>
         <Route path="/cart" component={Cart} />
         <Route path="/upload" component={Auth(Upload, true, true)} />
-        <Route path="/shop" component={Shop} />
-        <Route path="/about" component={About} />
+        <Route path="/shop" component={Auth(Shop, null, null)} />
+        <Route path="/product/:productId" component={Auth(ProductDetail, null, null)} />
+        <Route path="/about" component={Auth(About, null, null)} />
         <Route path="/id" component={FindId} />
         <Route path="/pw" component={FindPwd} />
         <Route path="/" exact component={Auth(Home, null, null)} />
