@@ -2,6 +2,7 @@ const mongoose = require('mongoose')
 const bcrpt = require('bcrypt')
 const saltRounds = 10
 const jwt = require('jsonwebtoken')
+const { auth } = require('../middleware/auth')
 
 const userSchema = mongoose.Schema({
     id: {
@@ -105,7 +106,6 @@ userSchema.methods.generateToken = function(cb){
     // user._id + 'secretToken' = token
     // 토큰 해석 시 'secretToken'을 이용해서 user._id를 찾을 수 있음
     // 즉, user가 누구인지를 알 수 있음
-
     user.token = token
     user.save(function(err, user){
         if(err) return cb(err)
