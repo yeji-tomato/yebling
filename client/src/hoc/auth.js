@@ -16,6 +16,7 @@ export function Auth(SpecificComponent, option, adminRoute = null){
 
             dispatch(auth()).then(response => {
                 console.log(response)
+                console.log('로그인 상태', response.payload)
 
                 // 로그인을 하지 않은 상태
                 if(!response.payload.isAuth){

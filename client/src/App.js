@@ -21,8 +21,8 @@ function App() {
       <Switch>
         <Route exact path="/register" component={Auth(Register, false, null)} />
         <Route exact path="/login" component={Auth(Login, false, null)} />
-        <Route exact path="/mypage" component={Auth(Mypage, true)}/>
-        <Route exact path="/cart" component={Auth(Cart, true)} />
+        <Route exact path="/mypage" component={Auth(Mypage, true, null)}/>
+        <Route exact path="/cart" component={Auth(Cart, true, null)} />
         <Route exact path="/upload" component={Auth(Upload, true, true)} />
         <Route exact path="/shop" component={Auth(Shop, null, null)} />
         <Route exact path="/product/:productId" component={Auth(ProductDetail, null, null)} />

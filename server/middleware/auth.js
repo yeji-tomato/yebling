@@ -9,7 +9,6 @@ let auth = (req, res, next) => {
 
     // 토큰을 복호화한 후 유저를 찾는다.
     User.findByToken(token, (err, user) => {
-        console.log('user찾기', user)
         if(err) throw err
         if(!user) return res.json({ isAuth: false, error: true})
 
