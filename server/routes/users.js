@@ -26,7 +26,7 @@ router.get("/auth", auth, (req, res) => {
         cart: req.user.cart,
         history: req.user.history
     }
-    res.status(200).send(authData + '데이터'); 
+    res.status(200).send(authData); 
 });
 
 router.post("/register", (req, res) => {
@@ -154,7 +154,6 @@ router.post("/updatePw", (req, res) => {
 });
  
 router.post("/login", (req, res) => {
-
     // 1. 요청된 아이디가 데이터베이스에 있는지 확인
     User.findOne({id : req.body.id}, (err, user) => {
     if(!user){
