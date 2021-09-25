@@ -1,24 +1,38 @@
 import { UserOutlined, ShoppingCartOutlined, UploadOutlined } from '@ant-design/icons';
 import { useSelector } from "react-redux";
-import { message } from 'antd';
+import { message, Badge } from 'antd';
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
 import { withRouter } from "react-router-dom";
 import { useDispatch } from 'react-redux';
 import { logoutUser } from '../_actions/user_actions';
+import styled from 'styled-components';
+import { useEffect } from "react";
 
 const activeStyle = { 
     color: "#7B2A2A",
-    fontWeight: 'bold'
+    fontWeight: 'bold',
  };
+
+ const Logout = styled.li`
+    cursor: pointer;
+    &:hover{
+        color: #CB7474;
+    }
+ `
 
 function AuthMenu(props){
 
     const [login, setLogin] = useState(false);
     const user = useSelector(state => state.user)
     const dispatch = useDispatch();
+    const [CartCount, setCartCount] = useState(0)
 
-    console.log('menubar', user)
+    useEffect(() => { 
+        if(user.userData && user.userData.cart){
+            setCartCount(user.userData.cart.length)
+        }
+    }, [user.userData])
 
     const onClickHandler = () => {
 
@@ -73,11 +87,15 @@ function AuthMenu(props){
                             </NavLink>
                         </li>
                         <li>
+                        <Badge count={CartCount} size="small" style={{ backgroundColor: '#7B2A2A' }}>
                             <NavLink to="/cart" activeStyle={activeStyle}>
-                            <ShoppingCartOutlined style={{ fontSize: '18px'}}/>
+                            <ShoppingCartOutlined style={{ fontSize: '18px'}}/>    
                             </NavLink>
+                        </Badge> 
                         </li>
-                        <li onClick={onClickHandler} >Logout</li>
+                        <Logout onClick={onClickHandler} >
+                            Logout
+                        </Logout>
                 </ul>
                 )
             }

@@ -17,11 +17,8 @@ const ButtonStyle = styled.button`
         background: #CB7474;
         color: #000;
     }
-    @media only screen and (max-width: 768px) {
-        width: 200px;
-    }
     @media only screen and (max-width: 576px) {
-        width: 100px;
+        width: 250px;
     }
 
     ${props => props.white && 
@@ -29,6 +26,15 @@ const ButtonStyle = styled.button`
     background: #FFFFFF;
     color: #7B2A2A;
     border: 1px solid #7B2A2A;
+    `}
+    ${props => props.small && 
+        css`
+        @media only screen and (max-width: 768px) {
+            width: 200px;
+        }
+        @media only screen and (max-width: 576px) {
+            width: 100px;
+        }
     `}
 `;
 

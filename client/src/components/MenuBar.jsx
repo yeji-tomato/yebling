@@ -19,7 +19,7 @@ function MenuBar(){
         background: #F3E9E0;
         padding: 0 25px;
         opacity: .99;
-        z-index: 9;
+        z-index: 99;
         ul{
             list-style:none;
             display: flex;
@@ -75,11 +75,7 @@ function MenuBar(){
     }
     `
 
-    const Right = styled.div`
-    @media only screen and (max-width: 576px) {
-        
-    }
-    `
+    const Right = styled.div``
 
     const activeStyle = { 
         color: "#7B2A2A",

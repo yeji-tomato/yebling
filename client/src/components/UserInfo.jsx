@@ -1,84 +1,52 @@
+import React from 'react'
 import { Form, Input, DatePicker, Radio, message } from 'antd';
-import Logo from '../components/Logo';
-import Inner from '../components/Inner';
-import { Link } from 'react-router-dom';
 import ButtonStyle from '../components/ButtonStyle';
-import styled from 'styled-components';
+import Inner from './Inner';
 import { useDispatch } from 'react-redux';
-import { registerUser } from '../_actions/user_actions';
+import { editUser } from '../_actions/user_actions';
 import { withRouter } from "react-router-dom";
 
-function Register(props){
+function UserInfo(props) {
+    
+    const info = props.details;
+    const dispatch = useDispatch();
 
-    const BgDiv = styled.div`
-        background: #F3E9E0;
-        min-height: 100vh;
-        padding: 50px;
-        @media only screen and (max-width: 576px) {
-            height: 170vh;
+    const onFinish = (values) => {
+
+        let body = {
+            id: values.id,
+            password: values.password,
+            name: values.name,
+            gender: values.gender,
+            email: values.email,
+            birth: values['birth'].format('YYYY/MM/DD'),
+            phone: values.phone
         }
-    `
-    const [form] = Form.useForm();
 
-    const formItemLayout = {
-        labelCol: {
-          xs: {
-            span: 24,
-          },
-          sm: {
-            span: 8,
-          },
-        },
-        wrapperCol: {
-          xs: {
-            span: 24,
-          },
-          sm: {
-            span: 16,
-          },
-        },
-      };
+        // console.log('body', body)
 
-      const dispatch = useDispatch();
 
-      const onFinish = (values) => {
+        dispatch(editUser(body))
+            .then(response => {
+                if(response.payload.success){
+                    message.success('성공적으로 회원수정이 완료되었습니다!😆');
+                    window.location.reload('/mypage');
+                    // props.history.push('/mypage')
+                }else{
+                    message.warning('회원수정에 실패하였습니다.😰');
+                }
+            })
 
-          let body = {
-              id: values.id,
-              password: values.password,
-              name: values.name,
-              gender: values.gender,
-              email: values.email,
-              birth: values['birth'].format('YYYY/MM/DD'),
-              phone: values.phone
-          }
-
-          // console.log(body)
-
-          dispatch(registerUser(body))
-              .then(response => {
-                  if(response.payload.success){
-                      message.success('성공적으로 회원가입이 완료되었습니다!😆');
-                      props.history.push('/login')
-                  }else{
-                    //   message.warning('회원가입에 실패하였습니다.😰');
-                      message.warning(response.payload.message);
-                  }
-              })
-  
-      };
+    };
 
     return (
-        <BgDiv>
-            <Inner>
-            <Link to="/">
-            <Logo>yebling</Logo>
-            </Link>
+        <>
+        <Inner>
             <Form 
-            style={{margin: '20px'}}
-            {...formItemLayout}
-            form={form}
-            initialValues = {{gender: 'female'}}
+            style={{margin: '50px'}}
+            // {...formItemLayout}
+            // form={form}
+            initialValues = {info}
             onFinish={onFinish}
             >
                 <Form.Item
@@ -173,11 +141,17 @@ function Register(props){
             }),
             ]}
         >
-            <DatePicker format='YYYY/MM/DD'/>
+            <DatePicker/>
         </Form.Item>
         <Form.Item
             name="gender"
             label="GENDER"
+            rules={[
+                {
+                    required: true,
+                    message: '성별을 선택해주세요!',
+                }
+            ]}
         >
             <Radio.Group 
             buttonStyle="solid">
@@ -222,11 +196,11 @@ function Register(props){
           }}
         />
       </Form.Item>
-      <ButtonStyle style={{width: '100%' }}>Register</ButtonStyle>
+      <ButtonStyle style={{width: '100%'}}>수정하기</ButtonStyle>
     </Form>
-    </Inner>
-    </BgDiv> 
+            </Inner>
+        </>
     )
 }
 
-export default withRouter(Register)
+export default withRouter(UserInfo)

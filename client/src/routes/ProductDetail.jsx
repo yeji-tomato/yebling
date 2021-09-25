@@ -1,30 +1,27 @@
 import React, {useEffect, useState} from 'react'
-import axios from 'axios'
+import { useDispatch } from 'react-redux';
 import MenuBar from '../components/MenuBar'
 import ProductImage from '../components/ProductImage'
 import ProductInfo from '../components/ProductInfo'
 import Bottom from '../components/Bottom'
-// import styled from 'styled-components';
 import { message, Row, Col } from 'antd'
 import { withRouter } from "react-router-dom";
+import { getDetailItem } from '../_actions/user_actions';
 
 function ProductDetail(props) {
 
+    const dispatch = useDispatch();
     const productId = props.match.params.productId
     const [Product, setProduct] = useState({})
 
 
     useEffect(() => {
-        
-        axios.get(`/api/product/products_by_id?id=${productId}&type=single`)
+        dispatch(getDetailItem(productId))
+        // axios.get(`/api/users/products_by_id?id=${productId}&type=single`)
         .then(response => {
-            if(response.data.success){
-                console.log('response.data', response.data)
-                setProduct(response.data.product[0])
-            }else{
-                message.warning('상세정보 가져오기를 실패하였습니다😰');
-            }
+            setProduct(response.payload[0])
         })
+        .catch(err => message.warning('상세정보 가져오기를 실패하였습니다😰'))
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 

@@ -1,22 +1,18 @@
 import React, {useState} from 'react'
 import ButtonStyle from './ButtonStyle';
-import Payment from './Payment';
+// import Payment from './Payment';
 import styled from 'styled-components';
 import { PlusOutlined, MinusOutlined } from '@ant-design/icons';
 import {message, Divider} from 'antd'
+// import { useSelector } from "react-redux";
+import { withRouter } from 'react-router-dom';
+import PayCart from '../components/PayCart'
 
 const FlexContent = styled.div`
 display: flex;
 @media only screen and (max-width: 992px) {
-    flex-direction: column;
+    justify-content: center;
 }
-`
-
-const BtnArea = styled.div`
-    display: flex;
-    text-align: center;
-    width: 100%;
-    margin-top: 50px; 
 `
 const QuBtn = styled(ButtonStyle)`
     background: #B29090;
@@ -38,6 +34,7 @@ const QuNumber = styled.div`
 function ProductInfo(props) {
 
     const Product = props.detail;
+    // const User = useSelector(state => state.user)
 
     const [number, setNumber] = useState(1);
 
@@ -69,9 +66,10 @@ function ProductInfo(props) {
     const priceTot =(Product.price) * number
     const total = String(priceTot).replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
 
-    const PaymentInfo = {
-        amount:  priceTot,
-        title: Product.title
+    const PayCartInfo = {
+        amount: priceTot,
+        title: Product.title,
+        _id: Product._id
     }
 
     return (
@@ -118,12 +116,9 @@ function ProductInfo(props) {
            </div>
        </FlexContent>
        <Divider/>
-       <BtnArea>
-       <Payment detail={PaymentInfo}>BUY</Payment>
-       <ButtonStyle white >WISH LIST</ButtonStyle>
-       </BtnArea>
+       <PayCart details={PayCartInfo}/>
        </div>
     )
 }
 
-export default ProductInfo
+export default withRouter(ProductInfo);

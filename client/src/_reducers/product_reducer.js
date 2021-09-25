@@ -1,7 +1,7 @@
 import {
     IMAGE_PRODUCT,
     UPLOAD_PRODUCT,
-    GOODS_PRODUCT
+    GOODS_PRODUCT,
 } from '../_actions/types'
 
 

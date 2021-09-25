@@ -3,7 +3,7 @@ import { PRODUCT_SERVER } from './config'
 import {
     IMAGE_PRODUCT,
     UPLOAD_PRODUCT,
-    GOODS_PRODUCT
+    GOODS_PRODUCT,
 }   from './types';
 
 
@@ -36,5 +36,6 @@ export function goodsProduct(dataToSubmit){
         payload: request
     }
 }
+
 
 

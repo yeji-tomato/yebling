@@ -23,6 +23,7 @@ const userSchema = mongoose.Schema({
     },
     email: {
         type: String,
+        unique: 1 // unique 중복 불가 
         // trim: true // trim은 빈칸을 없애주는 용도
     },
     birth: Date,
@@ -33,6 +34,14 @@ const userSchema = mongoose.Schema({
     role: {
         type: Number,
         default: 0
+    },
+    cart: {
+        type: Array,
+        default: []
+    },
+    history: {
+        type: Array,
+        default: []
     },
     // token 유효성 검사
     token: {
@@ -60,6 +69,19 @@ userSchema.pre('save', function(next){
         next()
     }
 })
+
+userSchema.methods.bcrptPassword = function(pwd, next){
+     // 비밀번호를 암호화 시킨다.
+     bcrpt.genSalt(saltRounds, function(err, salt){
+        if(err) return next(err)
+
+        bcrpt.hash(pwd, salt, function(err, hash){
+            if (err) return next(err)
+            pwd = hash
+            next(hash)
+        })
+    })
+}
 
 userSchema.methods.comparePassword = function(plainPassword, cb){
 

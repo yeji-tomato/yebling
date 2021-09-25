@@ -1,17 +1,10 @@
 import React, { useEffect } from 'react'
 import ButtonStyle from './ButtonStyle';
-import { useSelector } from "react-redux";
 import {message} from 'antd'
 
 function Payment(props) {
 
-    const user = useSelector(state => state.user)
-
-    const userData = user.userData;
-    const product = props.detail;
-
-    console.log('userData', userData)
-    console.log('product', product)
+    const pay = props.detail;
 
     useEffect(() => {
         const jquery = document.createElement('script')
@@ -37,11 +30,11 @@ function Payment(props) {
             pay_method: 'card',                           // 결제수단
             merchant_uid: `mid_${new Date().getTime()}`,   // 주문번호
             // amount: product.amount,                        // 결제금액
-            amount: 1,                        // 결제금액
-            name: product.title,                            // 주문명
-            buyer_name: userData.name,                      // 구매자 이름
-            buyer_tel: userData.name,                     // 구매자 전화번호
-            buyer_email: userData.email               // 구매자 이메일
+            amount: 100,                        // 결제금액
+            name: pay.title,                            // 주문명
+            buyer_name: pay.name,                      // 구매자 이름
+            buyer_tel: pay.tel,                     // 구매자 전화번호
+            buyer_email: pay.email               // 구매자 이메일
           }
           
           IMP.request_pay(data, callback);
@@ -53,6 +46,7 @@ function Payment(props) {
 
         if(success){
             message.success('결제를 성공하였습니다!😆');
+            props.onSuccess()
         }else{
             message.warning(`결제실패 : ${error_msg}`);
         }

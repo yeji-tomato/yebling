@@ -1,7 +1,6 @@
 import React, {useState} from 'react'
 import Dropzone from 'react-dropzone'
 import backImg from '../image/back_gr_gold.jpg'
-// import axios from 'axios'
 import { message, Button } from 'antd'
 import { DeleteOutlined } from '@ant-design/icons';
 import styled from "styled-components";

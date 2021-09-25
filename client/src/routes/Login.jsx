@@ -18,13 +18,8 @@ const bg = {
 const InputStyle = styled(Input)`
     width : 300px;
     padding: 10px;
-    // background: transparent;
-    // border: 1px solid #000;
     &:hover{
         color: #7B2A2A;
-    }
-    .ant-input{
-        // background: transparent;
     }
     @media only screen and (max-width: 576px) {
         width: 250px;

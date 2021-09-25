@@ -12,23 +12,25 @@ import Mypage from './routes/Mypage';
 import Cart from './routes/Cart';
 import Upload from './routes/UploadPage';
 import ProductDetail from './routes/ProductDetail';
+import UpdatePwd from './routes/UpdatePwd';
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
       <Switch>
-        <Route path="/register" component={Auth(Register, false, null)} />
-        <Route path="/login" component={Auth(Login, false, null)} />
-        <Route path="/mypage" component={Auth(Mypage, true)}/>
-        <Route path="/cart" component={Cart} />
-        <Route path="/upload" component={Auth(Upload, true, true)} />
-        <Route path="/shop" component={Auth(Shop, null, null)} />
-        <Route path="/product/:productId" component={Auth(ProductDetail, null, null)} />
-        <Route path="/about" component={Auth(About, null, null)} />
-        <Route path="/id" component={FindId} />
-        <Route path="/pw" component={FindPwd} />
-        <Route path="/" exact component={Auth(Home, null, null)} />
+        <Route exact path="/register" component={Auth(Register, false, null)} />
+        <Route exact path="/login" component={Auth(Login, false, null)} />
+        <Route exact path="/mypage" component={Auth(Mypage, true)}/>
+        <Route exact path="/cart" component={Auth(Cart, true)} />
+        <Route exact path="/upload" component={Auth(Upload, true, true)} />
+        <Route exact path="/shop" component={Auth(Shop, null, null)} />
+        <Route exact path="/product/:productId" component={Auth(ProductDetail, null, null)} />
+        <Route exact path="/about" component={Auth(About, null, null)} />
+        <Route exact path="/id" component={Auth(FindId, null, null)} />
+        <Route exact path="/pw/:Id" component={Auth(UpdatePwd, null, null)} />
+        <Route exact path="/pw" component={Auth(FindPwd, null, null)} />
+        <Route exact path="/" component={Auth(Home, null, null)} />
       </Switch>
       </BrowserRouter>
     </div>
