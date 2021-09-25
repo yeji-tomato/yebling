@@ -14,7 +14,7 @@ const async = require('async');
 router.get("/auth", auth, (req, res) => {
     // middleware를 통과 후 이 코드 구문 실행
     // -> Authentication이 true
-    res.status(200).send({
+    const authData = {
         _id: req.user._id,
         isAdmin: req.user.role === 0 ? false : true,
         isAuth : true,
@@ -25,7 +25,8 @@ router.get("/auth", auth, (req, res) => {
         phone: req.user.phone,
         cart: req.user.cart,
         history: req.user.history
-    }); 
+    }
+    res.status(200).send(authData + '데이터'); 
 });
 
 router.post("/register", (req, res) => {
