@@ -36,7 +36,7 @@ export function Auth(SpecificComponent, option, adminRoute = null){
                 }
             })
 
-        }, [props])
+        }, [dispatch, props.history])
 
         return (
             <SpecificComponent {...props} user={user}/>
