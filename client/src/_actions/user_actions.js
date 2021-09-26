@@ -14,7 +14,6 @@ import {
     ON_SUCCESS_BUY
 } from './types';
 import { url } from '../utils/axios'
-// import axios from 'axios'
 import { USER_SERVER } from './config';
 
 

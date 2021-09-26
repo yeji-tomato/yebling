@@ -1,5 +1,4 @@
 import { url } from '../utils/axios'
-// import axios from 'axios'
 import { PRODUCT_SERVER } from './config'
 import {
     IMAGE_PRODUCT,
@@ -7,11 +6,6 @@ import {
     GOODS_PRODUCT,
 }   from './types';
 
-// let corsUrl = process.env.NODE_ENV === 'production' ? 'https://yebling.netlify.app' : 'http://localhost:3000'
-
-// axios.defaults.baseURL = corsUrl; //서버주소
-// axios.defaults.headers.post['Content-Type'] = 'application/json;charset=utf-8';
-// axios.defaults.headers.post['Access-Control-Allow-Origin'] = corsUrl;
 
 export function imageProduct(dataToSubmit){
 
