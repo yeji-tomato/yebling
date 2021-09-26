@@ -79,7 +79,17 @@ export function editUser(dataToSubmit){
 
 export function auth(){
 
-    const request = url.get(`${USER_SERVER}/auth`, { withCredentials: true })
+    const config={
+
+        headers:{
+            Accept:'application/json',
+            'Content-Type': 'application/json',      
+            Cache:'no-cache'
+        },
+        withCredentials: true
+        }
+
+    const request = url.get(`${USER_SERVER}/auth`, config )
         .then(response => response.data )
     return {
         type: AUTH_USER,

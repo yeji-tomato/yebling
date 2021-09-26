@@ -29,6 +29,12 @@ app.use(express.json())
 app.use(cookieParser())
 // app.use(cors())
 app.use(cors(corsOptions));
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "https://yebling.netlify.app");
+    res.header("Access-Control-Allow-Credentials", true);
+    res.setHeader("Set-Cookie", "key=value; HttpOnly; SameSite=None")
+    next();   
+    });
 
 const mongoose = require('mongoose')
 mongoose.connect(config.mongoURI,{
