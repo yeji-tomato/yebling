@@ -90,8 +90,7 @@ userSchema.methods.comparePassword = function(plainPassword, cb){
     // -> 같은지 체크하기 위해선 암호화된 비밀번호를 복호화할 수 없으므로 
     // plainPassword 암호화 시킨 뒤에 비교해야함
     bcrpt.compare(plainPassword, this.password, function(err, isMatch){
-        console.log('plainPassword', plainPassword)
-        console.log('this.password', this.password)
+
         if(err) return cb(err)
             cb(null, isMatch)
     })

@@ -1,42 +1,37 @@
 const express = require('express')
 const app = express()
 const cookieParser = require('cookie-parser')
-// const session = require('express-session')
 const config = require('./config/key')
-
 const cors = require('cors');
 
-// const corsOptions = {
-//     origin: "https://yebling.netlify.app",
-//     credentials: true
-// }
 
 let corsOptions =
  process.env.NODE_ENV === 'production' ? 
 {
-    origin: "https://yebling.netlify.app",
-    credentials: true
+    origin: 'https://yebling.netlify.app',
+    credentials: true,
+    
 } : 
 {
-    origin: "http://localhost:3000",
-    credentials: true
+    origin: 'http://localhost:3000',
+    credentials: true,    
 }
-
-// application/x-www-form-urlencoded
+// let corsUrl = process.env.NODE_ENV === 'production' ? 'https://yebling.netlify.app' : 'http://localhost:3000'
+// app.use(function(req, res, next) {
+// res.header("Access-Control-Allow-Origin", corsUrl);
+//     res.header("Access-Control-Allow-Headers", "X-Requested-With");
+//     res.header("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
+//     next();
+// });
 app.use(express.urlencoded({ extended: true })) 
 // application/json
 app.use(express.json())
 app.use(cookieParser())
-// app.use(cors())
 app.use(cors(corsOptions));
-app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "https://yebling.netlify.app");
-    res.header("Access-Control-Allow-Credentials", true);
-    res.setHeader("Set-Cookie", "key=value; HttpOnly; SameSite=None")
-    next();   
-    });
 
-const mongoose = require('mongoose')
+
+
+const mongoose = require('mongoose');
 mongoose.connect(config.mongoURI,{
     useNewUrlParser : true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: false
 }).then(() => console.log('MongoDB Connected...'))

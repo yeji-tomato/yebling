@@ -15,7 +15,7 @@ export function Auth(SpecificComponent, option, adminRoute = null){
 
         useEffect(() => {
 
-            dispatch(auth()).then(response => {
+            dispatch(auth(), { withCredentials: true }).then(response => {
                 console.log(response)
                 console.log('로그인 상태', response.payload)
 
