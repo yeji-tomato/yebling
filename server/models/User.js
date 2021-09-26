@@ -2,7 +2,6 @@ const mongoose = require('mongoose')
 const bcrpt = require('bcrypt')
 const saltRounds = 10
 const jwt = require('jsonwebtoken')
-const { auth } = require('../middleware/auth')
 
 const userSchema = mongoose.Schema({
     id: {
