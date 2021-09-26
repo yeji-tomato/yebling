@@ -79,7 +79,8 @@ export function editUser(dataToSubmit){
 
 export function auth(){
 
-    const request = url.get(`${USER_SERVER}/auth`)
+    const request = url.get(`${USER_SERVER}/auth`
+    )
         .then(response => response.data )
     return {
         type: AUTH_USER,
