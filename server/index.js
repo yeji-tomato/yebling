@@ -5,17 +5,17 @@ const config = require('./config/key')
 const cors = require('cors');
 
 
-let corsOptions =
- process.env.NODE_ENV === 'production' ? 
-{
-    origin: 'https://yebling.netlify.app',
-    credentials: true,
+// let corsOptions =
+//  process.env.NODE_ENV === 'production' ? 
+// {
+//     origin: 'https://yebling.netlify.app',
+//     credentials: true,
     
-} : 
-{
-    origin: 'http://localhost:3000',
-    credentials: true,    
-}
+// } : 
+// {
+//     origin: 'http://localhost:3000',
+//     credentials: true,    
+// }
 // let corsUrl = process.env.NODE_ENV === 'production' ? 'https://yebling.netlify.app' : 'http://localhost:3000'
 // app.use(function(req, res, next) {
 // res.header("Access-Control-Allow-Origin", corsUrl);
@@ -27,8 +27,12 @@ app.use(express.urlencoded({ extended: true }))
 // application/json
 app.use(express.json())
 app.use(cookieParser())
-app.use(cors(corsOptions));
-
+// app.use(cors(corsOptions));
+app.use(cors({
+    origin: 'https://yebling.netlify.app',
+    credentials: true,
+    
+}));
 
 
 const mongoose = require('mongoose');
@@ -45,6 +49,6 @@ app.use('/api/product', require('./routes/product'));
 app.use('/uploads', express.static('uploads'));
 
 // const port = 5000
-// const port = process.env.PORT
-let port =  process.env.NODE_ENV === 'production' ? process.env.PORT : 5000
+const port = process.env.PORT
+// let port =  process.env.NODE_ENV === 'production' ? process.env.PORT : 5000
 app.listen(port, () => console.log(`Example app listening on port ${port}`))
