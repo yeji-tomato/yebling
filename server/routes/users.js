@@ -25,10 +25,8 @@ const async = require('async');
 
 // role 0 -> 일반 유저 , role이 0이 아니면 -> 관리자
 router.get("/auth", auth, (req, res) => {
-    let corsUrl = process.env.NODE_ENV === 'production' ? 'https://yebling.netlify.app' : 'http://localhost:3000';
     // middleware를 통과 후 이 코드 구문 실행
     // -> Authentication이 true
-    res.header("Access-Control-Allow-Origin", corsUrl);
     res.status(200).json({
         _id: req.user._id,
         isAdmin: req.user.role === 0 ? false : true,

@@ -13,14 +13,14 @@ import {
     REMOVE_CART_ITEM,
     ON_SUCCESS_BUY
 } from './types';
-// import { url } from '../utils/axios'
-import axios from 'axios'
+import { url } from '../utils/axios'
+// import axios from 'axios'
 import { USER_SERVER } from './config';
 
 
 export function loginUser(dataToSubmit){
 
-    const request = axios.post(`${USER_SERVER}/login`, dataToSubmit)
+    const request = url.post(`${USER_SERVER}/login`, dataToSubmit)
         .then(response => response.data )
     return {
         type: LOGIN_USER,
@@ -30,7 +30,7 @@ export function loginUser(dataToSubmit){
 
 export function findId(dataToSubmit){
 
-    const request = axios.post(`${USER_SERVER}/findId`, dataToSubmit)
+    const request = url.post(`${USER_SERVER}/findId`, dataToSubmit)
         .then(response => response.data )
     return {
         type: FIND_ID,
@@ -40,7 +40,7 @@ export function findId(dataToSubmit){
 
 export function findPw(dataToSubmit){
 
-    const request = axios.post(`${USER_SERVER}/findPw`, dataToSubmit)
+    const request = url.post(`${USER_SERVER}/findPw`, dataToSubmit)
         .then(response => response.data )
     return {
         type: FIND_PW,
@@ -50,7 +50,7 @@ export function findPw(dataToSubmit){
 
 export function updatePw(dataToSubmit){
 
-    const request = axios.post(`${USER_SERVER}/updatePw`, dataToSubmit)
+    const request = url.post(`${USER_SERVER}/updatePw`, dataToSubmit)
         .then(response => response.data )
     return {
         type: UPDATE_PW,
@@ -60,7 +60,7 @@ export function updatePw(dataToSubmit){
 
 export function registerUser(dataToSubmit){
 
-    const request = axios.post(`${USER_SERVER}/register`, dataToSubmit)
+    const request = url.post(`${USER_SERVER}/register`, dataToSubmit)
         .then(response => response.data )
     return {
         type: REGISTER_USER,
@@ -70,7 +70,7 @@ export function registerUser(dataToSubmit){
 
 export function editUser(dataToSubmit){
 
-    const request = axios.post(`${USER_SERVER}/edit`, dataToSubmit)
+    const request = url.post(`${USER_SERVER}/edit`, dataToSubmit)
         .then(response => response.data )
     return {
         type: EDIT_USER,
@@ -81,7 +81,7 @@ export function editUser(dataToSubmit){
 export function auth(){
 
 
-    const request = axios.get(`${USER_SERVER}/auth`, { withCredentials: true }
+    const request = url.get(`${USER_SERVER}/auth`, { withCredentials: true }
     ).then(response => response.data )
     return {
         type: AUTH_USER,
@@ -90,7 +90,7 @@ export function auth(){
 }
 
 export function logoutUser() {
-    const request = axios.get(`${USER_SERVER}/logout`)
+    const request = url.get(`${USER_SERVER}/logout`)
         .then(response => response.data);
 
     return {
@@ -106,7 +106,7 @@ export function addToCart(id) {
         productId : id
     }
 
-    const request = axios.post(`${USER_SERVER}/addToCart`, body)
+    const request = url.post(`${USER_SERVER}/addToCart`, body)
         .then(response => response.data);
 
     return {
@@ -117,7 +117,7 @@ export function addToCart(id) {
 
 export function getDetailItem(productId) {
 
-    const request = axios.get(`${USER_SERVER}/products_by_id?id=${productId}&type=single`)
+    const request = url.get(`${USER_SERVER}/products_by_id?id=${productId}&type=single`)
     .then(response => response.data);
 
     return {
@@ -128,7 +128,7 @@ export function getDetailItem(productId) {
 
 export function getCartItems(cartItems, userCart) {
 
-    const request = axios.get(`${USER_SERVER}/products_by_id?id=${cartItems}&type=array`)
+    const request = url.get(`${USER_SERVER}/products_by_id?id=${cartItems}&type=array`)
         .then(response => {
 
             // CartItem들에 해당하는 정보들을 
@@ -154,7 +154,7 @@ export function getCartItems(cartItems, userCart) {
 
 export function removeCartItem(productId) {
 
-    const request = axios.get(`${USER_SERVER}/removeCart?id=${productId}`)
+    const request = url.get(`${USER_SERVER}/removeCart?id=${productId}`)
         .then(response => {
             //productInfo ,  cart 정보를 조합해서   CartDetail을 만든다. 
             response.data.cart.forEach(item => {
@@ -176,7 +176,7 @@ export function removeCartItem(productId) {
 
 export function onSuccessBuy(data) {
 
-    const request = axios.post(`${USER_SERVER}/successBuy`, data)
+    const request = url.post(`${USER_SERVER}/successBuy`, data)
         .then(response => response.data);
 
     return {
