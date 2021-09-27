@@ -16,13 +16,13 @@ let corsOptions =
     origin: 'http://localhost:3000',
     credentials: true,    
 }
-let corsUrl = process.env.NODE_ENV === 'production' ? 'https://yebling.netlify.app' : 'http://localhost:3000'
-app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", corsUrl);
-    res.header("Access-Control-Allow-Credentials", true);
-    res.setHeader("Set-Cookie", "key=value; HttpOnly; SameSite=None")
-    next();
-});
+// let corsUrl = process.env.NODE_ENV === 'production' ? 'https://yebling.netlify.app' : 'http://localhost:3000'
+// app.use(function(req, res, next) {
+//     res.header("Access-Control-Allow-Origin", corsUrl);
+//     res.header("Access-Control-Allow-Credentials", true);
+//     res.setHeader("Set-Cookie", "key=value; HttpOnly; SameSite=None")
+//     next();
+// });
 app.use(express.urlencoded({ extended: true })) 
 // application/json
 app.use(express.json())
