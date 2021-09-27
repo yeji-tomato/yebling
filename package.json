@@ -4,11 +4,11 @@
   "description": "jewelry E-commerce WebSite",
   "main": "index.js",
   "scripts": {
+    "heroku-postbuild": "cd client && npm install && npm run build",
     "start": "node server/index.js",
     "backend": "nodemon server/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "concurrently \"npm run backend \" \"npm run start --prefix client \"",
-    "heroku-postbuild": "cd client && npm install && npm run build"
+    "dev": "concurrently \"npm run backend \" \"npm run start --prefix client \""
   },
   "author": "Lee-ye-ji",
   "license": "ISC",
