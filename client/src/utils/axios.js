@@ -10,10 +10,9 @@ import axios from 'axios'
 //       }
 //   })
 //   : axios
-
+axios.defaults.withCredentials = true;
 export let url = process.env.NODE_ENV === 'production' ? 
 axios.create({
-    baseURL: "https://yebling.herokuapp.com",
-    withCredentials: true,
+    baseURL: "https://yebling.herokuapp.com"
   })
   : axios
