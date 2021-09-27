@@ -8,7 +8,7 @@
     "backend": "nodemon server/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "concurrently \"npm run backend \" \"npm run start --prefix client \"",
-    "heroku-postbuild": "cd client && npm install && npm run build"
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
   "author": "Lee-ye-ji",
   "license": "ISC",
