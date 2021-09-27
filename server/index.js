@@ -36,13 +36,12 @@ mongoose.connect(config.mongoURI,{
 }).then(() => console.log('MongoDB Connected...'))
 .catch(err => console.log(err))
 
-if(process.env.NODE_ENV  === 'production'){
-    app.use(express.static(path.join(__dirname, "client/build")));
-}
+// 리액트 정적 파일 제공
+app.use(express.static(path.join(__dirname, 'client/build')));
 
-app.get('/', (req, res) => {
-    // res.send('Hello World!')
-    res.sendFile(path.join(__dirname, "client/build", "index.html"))
+// 라우트 설정
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname+'/client/build/index.html'));
 });
 
 app.use('/api/users', require('./routes/users'));
