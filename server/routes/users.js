@@ -11,20 +11,8 @@ const cors = require('cors');
 //             User
 //=================================
 
-let corsOptions =
- process.env.NODE_ENV === 'production' ? 
-{
-    origin: 'https://yebling.netlify.app',
-    credentials: true,
-    
-} : 
-{
-    origin: 'http://localhost:3000',
-    credentials: true,    
-}
-
 // role 0 -> 일반 유저 , role이 0이 아니면 -> 관리자
-router.get("/auth",cors(corsOptions), auth, (req, res) => {
+router.get("/auth", auth, (req, res) => {
     // middleware를 통과 후 이 코드 구문 실행
     // -> Authentication이 true
     res.status(200).json({

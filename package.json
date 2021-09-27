@@ -4,6 +4,7 @@
   "description": "jewelry E-commerce WebSite",
   "main": "index.js",
   "scripts": {
+    "heroku-postbuild": "cd client && npm install && npm bulid",
     "start": "node server/index.js",
     "backend": "nodemon server/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
