@@ -17,6 +17,7 @@ import { url } from '../utils/axios'
 import { USER_SERVER } from './config';
 
 
+
 export function loginUser(dataToSubmit){
 
     const request = url.post(`${USER_SERVER}/login`, dataToSubmit)
@@ -78,9 +79,8 @@ export function editUser(dataToSubmit){
 }
 
 export function auth(){
-
-
-    const request = url.get(`${USER_SERVER}/auth`, { withCredentials: true }
+    const request =     
+    url.get(`${USER_SERVER}/auth`
     ).then(response => response.data )
     return {
         type: AUTH_USER,
