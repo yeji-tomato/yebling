@@ -42,7 +42,7 @@ if(process.env.NODE_ENV  === 'production'){
 
 app.get('/', (req, res) => {
     // res.send('Hello World!')
-    res.sendFile(path.join(__dirname, "client/bulid", "index.html"))
+    res.sendFile(path.join(__dirname, "client/build", "index.html"))
 });
 
 app.use('/api/users', require('./routes/users'));
