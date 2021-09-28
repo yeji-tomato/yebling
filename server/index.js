@@ -14,16 +14,20 @@ const cors = require('cors');
 //     origin: 'http://localhost:3000',
 //     credentials: true,    
 // }
-
+let corsOptions = {
+    origin: 'https://yebling.netlify.app',
+    credentials: true
+}
 app.use(express.urlencoded({ extended: true })) 
 // application/json
 app.use(express.json())
 app.use(cookieParser())
-app.use({
-        origin: 'https://yebling.netlify.app',
-        credentials: true,
-        
-    });
+app.use((req, res) => {
+	// res.header("Access-Control-Allow-Origin", "*"); // 모든 도메인
+    res.header("Access-Control-Allow-Origin", "https://yebling.netlify.app"); // 특정 도메인 
+});
+app.use(cors(corsOptions));
+
 
 const mongoose = require('mongoose');
 mongoose.connect(config.mongoURI,{
