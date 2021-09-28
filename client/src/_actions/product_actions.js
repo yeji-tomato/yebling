@@ -1,5 +1,5 @@
-// import { url } from '../utils/axios'
-import axios from 'axios'
+import { url } from '../utils/axios'
+// import axios from 'axios'
 import { PRODUCT_SERVER } from './config'
 import {
     IMAGE_PRODUCT,
@@ -10,7 +10,7 @@ import {
 
 export function imageProduct(dataToSubmit){
 
-    const request = axios.post(`${PRODUCT_SERVER}/image`, dataToSubmit)
+    const request = url.post(`${PRODUCT_SERVER}/image`, dataToSubmit)
         .then(response => response.data )
     return {
         type: IMAGE_PRODUCT,
@@ -20,7 +20,7 @@ export function imageProduct(dataToSubmit){
 
 export function uploadProduct(dataToSubmit){
 
-    const request = axios.post(`${PRODUCT_SERVER}/upload`, dataToSubmit)
+    const request = url.post(`${PRODUCT_SERVER}/upload`, dataToSubmit)
         .then(response => response.data )
     return {
         type: UPLOAD_PRODUCT,
@@ -30,7 +30,7 @@ export function uploadProduct(dataToSubmit){
 
 export function goodsProduct(dataToSubmit){
 
-    const request = axios.post(`${PRODUCT_SERVER}/goods`, dataToSubmit)
+    const request = url.post(`${PRODUCT_SERVER}/goods`, dataToSubmit)
         .then(response => response.data )
     return {
         type: GOODS_PRODUCT,
