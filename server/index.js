@@ -5,23 +5,26 @@ const config = require('./config/key')
 const cors = require('cors');
 
 
-let corsOptions =
- process.env.NODE_ENV === 'production' ? 
-{
-    origin: 'https://yebling.netlify.app',
-    credentials: true,
+// let corsOptions =
+//  process.env.NODE_ENV === 'production' ? 
+// {
+//     origin: 'https://yebling.netlify.app',
+//     credentials: true,
     
-} : 
-{
-    origin: 'http://localhost:3000',
-    credentials: true,    
-}
+// } : 
+// {
+//     origin: 'http://localhost:3000',
+//     credentials: true,    
+// }
 
 app.use(express.urlencoded({ extended: true })) 
 // application/json
 app.use(express.json())
 app.use(cookieParser())
-app.use(cors(corsOptions));
+app.use(cors({
+        origin: 'http://localhost:3000',
+        credentials: true,    
+    }));
 
 const mongoose = require('mongoose');
 mongoose.connect(config.mongoURI,{
@@ -29,16 +32,16 @@ mongoose.connect(config.mongoURI,{
 }).then(() => console.log('MongoDB Connected...'))
 .catch(err => console.log(err))
 
-app.get('/', (req, res) => res.send('Hello World!'));
+// app.get('/', (req, res) => res.send('Hello World!'));
 
-// // 리액트 정적 파일 제공
-// if(process.env.NODE_ENV === 'production'){
-//     app.use(express.static(path.join(__dirname, 'client/build')));
-//     // 라우트 설정
-//     app.get('/', (req, res) => {
-//         res.sendFile(path.join(__dirname+'/client/build/index.html'));
-//     });
-// }
+// 리액트 정적 파일 제공
+if(process.env.NODE_ENV === 'production'){
+    app.use(express.static(path.join(__dirname, 'client/build')));
+    // 라우트 설정
+    app.get('/', (req, res) => {
+        res.sendFile(path.join(__dirname+'/client/build/index.html'));
+    });
+}
 
 app.use('/api/users', require('./routes/users'));
 app.use('/api/product', require('./routes/product'));
