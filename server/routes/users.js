@@ -11,6 +11,14 @@ const cors = require('cors');
 //             User
 //=================================
 
+// let link =  process.env.NODE_ENV === 'production' ? 'https://yebling.netlify.app' : 'http://localhost:3000'
+// router.use(function(req, res, next) {
+
+//     res.header("Access-Control-Allow-Origin", link);
+//     res.header("Access-Control-Allow-Headers", link );
+//     next();
+// });
+
 // role 0 -> 일반 유저 , role이 0이 아니면 -> 관리자
 router.get("/auth", auth, (req, res) => {
     // middleware를 통과 후 이 코드 구문 실행

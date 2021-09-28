@@ -7,6 +7,15 @@ const { Product } = require('../models/Product');
 //             Product
 //=================================
 
+// let link =  process.env.NODE_ENV === 'production' ? 'https://yebling.netlify.app' : 'http://localhost:3000'
+// router.use(function(req, res, next) {
+
+//     res.header("Access-Control-Allow-Origin", link);
+//     res.header("Access-Control-Allow-Headers", link );
+//     next();
+// });
+
+
 const storage = multer.diskStorage({
     // destination : 파일이 저장되는 위치
     destination: function (req, file, cb) {
