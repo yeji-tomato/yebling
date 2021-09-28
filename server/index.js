@@ -4,28 +4,26 @@ const cookieParser = require('cookie-parser')
 const config = require('./config/key')
 const cors = require('cors');
 
-// let corsOptions = process.env.NODE_ENV === 'production' ? 
-// {
-//     origin: 'https://yebling.netlify.app',
-//     credentials: true,
-    
-// } : 
-// {
-//     origin: 'http://localhost:3000',
-//     credentials: true,    
-// }
-let corsOptions = {
+let corsOptions = process.env.NODE_ENV === 'production' ? 
+{
     origin: 'https://yebling.netlify.app',
-    credentials: true
+    credentials: true,
+    
+} : 
+{
+    origin: 'http://localhost:3000',
+    credentials: true,    
 }
+let link =  process.env.NODE_ENV === 'production' ? 'https://yebling.netlify.app' : 'http://localhost:3000'
+
 app.use(express.urlencoded({ extended: true })) 
 // application/json
 app.use(express.json())
 app.use(cookieParser())
-app.use((req, res) => {
-	// res.header("Access-Control-Allow-Origin", "*"); // 모든 도메인
-    res.header("Access-Control-Allow-Origin", "https://yebling.netlify.app"); // 특정 도메인 
-});
+// app.use((req, res) => {
+// 	// res.header("Access-Control-Allow-Origin", "*"); // 모든 도메인
+//     res.header("Access-Control-Allow-Origin", link); // 특정 도메인 
+// });
 app.use(cors(corsOptions));
 
 
