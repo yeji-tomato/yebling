@@ -4,24 +4,26 @@ const cookieParser = require('cookie-parser')
 const config = require('./config/key')
 const cors = require('cors');
 
-
-let corsOptions =
- process.env.NODE_ENV === 'production' ? 
-{
-    origin: 'https://yebling.netlify.app',
-    credentials: true,
+// let corsOptions = process.env.NODE_ENV === 'production' ? 
+// {
+//     origin: 'https://yebling.netlify.app',
+//     credentials: true,
     
-} : 
-{
-    origin: 'http://localhost:3000',
-    credentials: true,    
-}
+// } : 
+// {
+//     origin: 'http://localhost:3000',
+//     credentials: true,    
+// }
 
 app.use(express.urlencoded({ extended: true })) 
 // application/json
 app.use(express.json())
 app.use(cookieParser())
-app.use(cors(corsOptions));
+app.use({
+        origin: 'https://yebling.netlify.app',
+        credentials: true,
+        
+    });
 
 const mongoose = require('mongoose');
 mongoose.connect(config.mongoURI,{
