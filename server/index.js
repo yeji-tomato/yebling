@@ -4,31 +4,31 @@ const cookieParser = require('cookie-parser')
 const config = require('./config/key')
 const cors = require('cors');
 
-// let corsOptions = process.env.NODE_ENV === 'production' ? 
-// {
-//     origin: 'https://yebling.netlify.app',
-//     credentials: true,
+let corsOptions = process.env.NODE_ENV === 'production' ? 
+{
+    origin: 'https://yebling.netlify.app',
+    credentials: true,
     
-// } : 
-// {
-//     origin: 'http://localhost:3000',
-//     credentials: true,    
-// }
+} : 
+{
+    origin: 'http://localhost:3000',
+    credentials: true,    
+}
 
 // let link =  process.env.NODE_ENV === 'production' ? 'https://yebling.netlify.app' : 'http://localhost:3000'
 
-function corsCheck(req, callback) {
-    let corsOptions;
-    const acceptList = [
-        'https://yebling.netlify.app', 'http://localhost:3000'
-    ];
-    if (acceptList.indexOf(req.header('Origin')) !== -1) {
-      corsOptions = { origin: true, credential: true };
-    } else {
-      corsOptions = { origin: false };
-    }
-    callback(null, corsOptions);
-  }
+// function corsCheck(req, callback) {
+//     let corsOptions;
+//     const acceptList = [
+//         'https://yebling.netlify.app', 'http://localhost:3000'
+//     ];
+//     if (acceptList.indexOf(req.header('Origin')) !== -1) {
+//       corsOptions = { origin: true, credential: true };
+//     } else {
+//       corsOptions = { origin: false };
+//     }
+//     callback(null, corsOptions);
+//   }
 
 app.use(express.urlencoded({ extended: true })) 
 // application/json
@@ -38,13 +38,13 @@ app.use(cookieParser())
 // 	// res.header("Access-Control-Allow-Origin", "*"); // 모든 도메인
 //     res.header("Access-Control-Allow-Origin", link); // 특정 도메인 
 // });
-app.use(
-    cors({
-      method: ['GET', 'POST'],
-      credentials: true,
-    })
-  );
-
+// app.use(
+//     cors({
+//       method: ['GET', 'POST'],
+//       credentials: true,
+//     })
+//   );
+app.use(cors(corsOptions))
 
 const mongoose = require('mongoose');
 mongoose.connect(config.mongoURI,{
@@ -52,7 +52,7 @@ mongoose.connect(config.mongoURI,{
 }).then(() => console.log('MongoDB Connected...'))
 .catch(err => console.log(err))
 
-app.get('/', cors(corsCheck), (req, res) => res.send('Hello World!'));
+app.get('/',  (req, res) => res.send('Hello World!'));
 
 // // 리액트 정적 파일 제공
 // if(process.env.NODE_ENV === 'production'){
@@ -63,8 +63,8 @@ app.get('/', cors(corsCheck), (req, res) => res.send('Hello World!'));
 //     });
 // }
 
-app.use('/api/users', cors(corsCheck), require('./routes/users'));
-app.use('/api/product', cors(corsCheck), require('./routes/product'));
+app.use('/api/users', require('./routes/users'));
+app.use('/api/product', require('./routes/product'));
 
 app.use('/uploads', express.static('uploads'));
 
