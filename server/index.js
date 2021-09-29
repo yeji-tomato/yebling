@@ -63,8 +63,8 @@ app.get('/', cors(corsCheck), (req, res) => res.send('Hello World!'));
 //     });
 // }
 
-app.use('/api/users', require('./routes/users'));
-app.use('/api/product', require('./routes/product'));
+app.use('/api/users', cors(corsCheck), require('./routes/users'));
+app.use('/api/product', cors(corsCheck), require('./routes/product'));
 
 app.use('/uploads', express.static('uploads'));
 
