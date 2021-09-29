@@ -30,7 +30,7 @@ export function uploadProduct(dataToSubmit){
 
 export function goodsProduct(dataToSubmit){
 
-    const request = url.post(`${PRODUCT_SERVER}/goods`, dataToSubmit)
+    const request = url.post(`${PRODUCT_SERVER}/goods`, { withCredentials: true }, dataToSubmit)
         .then(response => response.data )
     return {
         type: GOODS_PRODUCT,

@@ -11,16 +11,21 @@ const cors = require('cors');
 //             User
 //=================================
 
-// let link =  process.env.NODE_ENV === 'production' ? 'https://yebling.netlify.app' : 'http://localhost:3000'
-// router.use(function(req, res, next) {
-
-//     res.header("Access-Control-Allow-Origin", link);
-//     res.header("Access-Control-Allow-Headers", link );
-//     next();
-// });
+function corsCheck(req, callback) {
+    let corsOptions;
+    const acceptList = [
+        'https://yebling.netlify.app', 'http://localhost:3000'
+    ];
+    if (acceptList.indexOf(req.header('Origin')) !== -1) {
+      corsOptions = { origin: true, credential: true };
+    } else {
+      corsOptions = { origin: false };
+    }
+    callback(null, corsOptions);
+  }
 
 // role 0 -> 일반 유저 , role이 0이 아니면 -> 관리자
-router.get("/auth", auth, (req, res) => {
+router.get("/auth", cors(corsCheck), auth, (req, res) => {
     // middleware를 통과 후 이 코드 구문 실행
     // -> Authentication이 true
     res.status(200).json({
@@ -37,7 +42,7 @@ router.get("/auth", auth, (req, res) => {
     }); 
 });
 
-router.post("/register", (req, res) => {
+router.post("/register", cors(corsCheck), (req, res) => {
     // 회원 가입 할 때 필요한 정보들을 client에서 가져오면
     // 그것들을 데이터베이스에 넣어준다.
     // {

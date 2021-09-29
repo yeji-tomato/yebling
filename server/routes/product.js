@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const multer  = require('multer');
 const { Product } = require('../models/Product');
+const cors = require('cors');
 
 //=================================
 //             Product
@@ -15,6 +16,19 @@ const { Product } = require('../models/Product');
 //     next();
 // });
 
+
+function corsCheck(req, callback) {
+    let corsOptions;
+    const acceptList = [
+        'https://yebling.netlify.app', 'http://localhost:3000'
+    ];
+    if (acceptList.indexOf(req.header('Origin')) !== -1) {
+      corsOptions = { origin: true, credential: true };
+    } else {
+      corsOptions = { origin: false };
+    }
+    callback(null, corsOptions);
+  }
 
 const storage = multer.diskStorage({
     // destination : 파일이 저장되는 위치
@@ -60,7 +74,7 @@ router.post('/upload', (req, res) => {
 
 })
 
-router.post('/goods', (req, res) => {
+router.post('/goods', cors(corsCheck), (req, res) => {
     
     // product collection에 들어 있는 모든 상품 정보를 가져오기
 
