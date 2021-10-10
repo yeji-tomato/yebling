@@ -12,10 +12,9 @@ id : user01
 password : pass1234!
 ```
 ## Deployment / 배포
-※ 현재는 로그인, 로그아웃, 회원가입 기능만 완성되어있습니다! <br>
-
+<!-- ※ 현재는 로그인, 로그아웃, 회원가입 기능만 완성되어있습니다! <br> -->
 [YEBLING<br>
-![image](https://user-images.githubusercontent.com/59958929/131241441-0aa12cef-57a7-4d43-9b7b-5b823b32b48a.png)](https://yebling.netlify.app/)
+![image](https://user-images.githubusercontent.com/59958929/131241441-0aa12cef-57a7-4d43-9b7b-5b823b32b48a.png)](https://yebling.herokuapp.com/)
 
 ## 기능 소개
 완성 - ✔ 
