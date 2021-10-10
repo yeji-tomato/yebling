@@ -4,8 +4,9 @@ import Bottom from "../components/Bottom";
 import path from '../image/aboutImg.jpg';
 import Inner from "../components/Inner";
 import styled from 'styled-components'
+import { withRouter } from "react-router-dom";
 
-export default function About(){
+function About(){
     const Content = {
         backgroundImage: `url(${path})`,
         backgroundRepeat: 'no-repeat',
@@ -62,3 +63,4 @@ export default function About(){
         </>
     )
 }
+export default withRouter(About);

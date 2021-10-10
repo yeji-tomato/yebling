@@ -49,11 +49,11 @@ function Register(props){
               name: values.name,
               gender: values.gender,
               email: values.email,
-              birth: values['birth'].format('YYYY-MM-DD'),
+              birth: values['birth'].format('YYYY/MM/DD'),
               phone: values.phone
           }
 
-          console.log(body)
+          // console.log(body)
 
           dispatch(registerUser(body))
               .then(response => {
@@ -173,7 +173,7 @@ function Register(props){
             }),
             ]}
         >
-            <DatePicker />
+            <DatePicker format='YYYY/MM/DD'/>
         </Form.Item>
         <Form.Item
             name="gender"

@@ -3,9 +3,6 @@ import { Layout } from 'antd';
 
 const { Content } = Layout;
 const Center = styled(Content)`
-        width: 300vw;
-
-
     ${props => props.home && 
         css`
         width: 100%;
@@ -17,7 +14,6 @@ const Center = styled(Content)`
         align-items: center;
         @media only screen and (max-width: 576px) {
             flex-direction: column;
-            // text-align: center;
         }
     `}    
     `

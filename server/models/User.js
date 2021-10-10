@@ -23,6 +23,7 @@ const userSchema = mongoose.Schema({
     },
     email: {
         type: String,
+        unique: 1 // unique 중복 불가 
         // trim: true // trim은 빈칸을 없애주는 용도
     },
     birth: Date,
@@ -33,6 +34,14 @@ const userSchema = mongoose.Schema({
     role: {
         type: Number,
         default: 0
+    },
+    cart: {
+        type: Array,
+        default: []
+    },
+    history: {
+        type: Array,
+        default: []
     },
     // token 유효성 검사
     token: {
@@ -61,6 +70,19 @@ userSchema.pre('save', function(next){
     }
 })
 
+userSchema.methods.bcrptPassword = function(pwd, next){
+     // 비밀번호를 암호화 시킨다.
+     bcrpt.genSalt(saltRounds, function(err, salt){
+        if(err) return next(err)
+
+        bcrpt.hash(pwd, salt, function(err, hash){
+            if (err) return next(err)
+            pwd = hash
+            next(hash)
+        })
+    })
+}
+
 userSchema.methods.comparePassword = function(plainPassword, cb){
 
     // plainPassword 1234567 
@@ -68,6 +90,7 @@ userSchema.methods.comparePassword = function(plainPassword, cb){
     // -> 같은지 체크하기 위해선 암호화된 비밀번호를 복호화할 수 없으므로 
     // plainPassword 암호화 시킨 뒤에 비교해야함
     bcrpt.compare(plainPassword, this.password, function(err, isMatch){
+
         if(err) return cb(err)
             cb(null, isMatch)
     })
@@ -81,7 +104,6 @@ userSchema.methods.generateToken = function(cb){
     // user._id + 'secretToken' = token
     // 토큰 해석 시 'secretToken'을 이용해서 user._id를 찾을 수 있음
     // 즉, user가 누구인지를 알 수 있음
-
     user.token = token
     user.save(function(err, user){
         if(err) return cb(err)

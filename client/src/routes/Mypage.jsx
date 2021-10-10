@@ -1,168 +1,54 @@
+import React, { useState, useEffect } from 'react'
 import MenuBar from "../components/MenuBar";
 import Bottom from "../components/Bottom";
-import Inner from '../components/Inner';
-import { Form, Input, DatePicker, Radio } from 'antd';
-import ButtonStyle from '../components/ButtonStyle';
+import UserInfo from '../components/UserInfo';
+import PayInfo from '../components/PayInfo';
+import { Result, Tabs } from 'antd';
 import { withRouter } from "react-router-dom";
+import { SmileOutlined } from '@ant-design/icons';
+import { useSelector } from "react-redux";
+import styled from 'styled-components';
+
+const { TabPane } = Tabs;
+const MPdiv = styled.div`
+    min-height: 80vh;
+    padding: 50px;
+`
 
 function Mypage() {
 
+    const user = useSelector(state => state.user);
+    const [name, setname] = useState('')
+    const [Info, setInfo] = useState();
     
+
+    useEffect(() => {
+        if(user.userData){
+            setname(user.userData.name)
+            setInfo(user.userData)
+        }
+    }, [user.userData])
+
     return (
         <div>
             <MenuBar/>
-            <Inner>
-            <Form 
-            style={{margin: '50px', height: '65vh'}}
-            // {...formItemLayout}
-            // form={form}
-            initialValues = {{gender: 'female'}}
-            // onFinish={onFinish}
-            >
-                <Form.Item
-                    name="id"
-                    label="ID"
-                    rules={[
-                    {
-                        required: true,
-                        message: '아이디를 입력해주세요!',
-                    },
-                    {
-                        pattern: /^[A-za-z0-9]{4,10}/g, 
-                        message: '4~10자의 영문 대 소문자, 숫자만 사용',
-                      }
-                    ]}
-                >
-                    <Input/>
-                </Form.Item>
-                <Form.Item
-        name="password"
-        label="PASSWORD"
-        hasFeedback
-        rules={[
-          {
-            required: true,
-            message: '비밀번호를 입력해주세요!',
-          },
-          {
-            pattern: /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,16}/g, 
-            message: '8~16자 영문 대 소문자, 숫자, 특수문자',
-          }
-        ]}
-      >
-        <Input.Password />
-        </Form.Item>
-
-        <Form.Item
-            name="confirm"
-            label="CONFIRM PW"
-            dependencies={['password']}
-            hasFeedback
-            rules={[
-            {
-                required: true,
-                message: '비밀번호 확인을 입력해주세요!',
-            },
-            ({ getFieldValue }) => ({
-                validator(_, value) {
-                if (!value || getFieldValue('password') === value) {
-                    return Promise.resolve();
-                }
-
-                return Promise.reject(new Error('비밀번호가 일치하지 않습니다'));
-                },
-            }),
-            ]}
-        >
-            <Input.Password />
-        </Form.Item>
-        <Form.Item
-            name="name"
-            label="NAME"
-            rules={[
-            {
-                required: true,
-                message: '이름을 입력해주세요!',
-            },
-            {
-                pattern: /^[가-힣]{2,4}$/, 
-                message: '2~4자의 한글이름을 입력해주세요!',
-            }
-            ]}
-        >
-            <Input />
-        </Form.Item>
-        <Form.Item
-            name="birth"
-            label="BIRTH"
-            rules={[
-            {
-                required: true,
-                message: '생년월일을 입력해주세요!',
-            },
-            ({ getFieldValue }) => ({
-                validator(_, value) {
-                if (!value || getFieldValue('birth') < new Date()) {
-                    return Promise.resolve();
-                }
-    
-                return Promise.reject(new Error('생년월일을 정확히 입력하세요!'));
-                },
-            }),
-            ]}
-        >
-            <DatePicker />
-        </Form.Item>
-        <Form.Item
-            name="gender"
-            label="GENDER"
-        >
-            <Radio.Group 
-            buttonStyle="solid">
-                <Radio.Button value="male">MALE</Radio.Button>
-                <Radio.Button value="female">FEMALE</Radio.Button>
-            </Radio.Group>
-        </Form.Item>
-        <Form.Item
-            name="email"
-            label="E-MAIL"
-            rules={[
-            {
-                type: 'email',
-                message: '올바른 이메일 양식이 아닙니다!',
-            },
-            {
-                required: true,
-                message: '이메일을 입력해주세요!',
-            },
-            ]}
-        >
-            <Input />
-        </Form.Item>
-        <Form.Item
-        name="phone"
-        label="PHONE"
-        rules={[
-          {
-            required: true,
-            message: '핸드폰 번호를 입력해주세요!',
-          },
-          {
-            pattern: /^[0-9]+$/, 
-            message: '올바른 휴대전화 번호를 입력해주세요!',
-        }
-        ]}
-      >
-        <Input
-          addonBefore='+82'
-          style={{
-            width: '100%',
-          }}
-        />
-      </Form.Item>
-      <ButtonStyle style={{width: '100%' }}>수정하기</ButtonStyle>
-    </Form>
-            </Inner>
+            <MPdiv>
+                <Tabs tabPosition='top'>
+                    <TabPane tab="MYPAGE" key="1">
+                        <br/><br/><br/>
+                    <Result
+                            icon={<SmileOutlined />}
+                            title={`${name}님 환영합니다!`}
+                        />
+                    </TabPane>
+                    <TabPane tab="회원정보 수정" key="2">
+                        <UserInfo details={Info}/>
+                    </TabPane>
+                    <TabPane tab="결제 내역" key="3">
+                        <PayInfo/>
+                    </TabPane>
+                </Tabs>
+            </MPdiv>
             <Bottom />
         </div>
     )
