@@ -19,7 +19,7 @@ app.use(express.urlencoded({ extended: true }))
 // application/json
 app.use(express.json())
 app.use(cookieParser())
-app.use(cors(corsOptions));
+app.use(cors(corsOptions)); 
 
 
 const mongoose = require('mongoose');
