@@ -14,7 +14,6 @@ import {
     ON_SUCCESS_BUY
 } from './types';
 import { USER_SERVER } from './config';
-// axios.defaults.baseURL = process.env.NODE_ENV === 'development' ? '/' : 'https://yebling.herokuapp.com/';
 import { url } from '../utils/axios';
 
 export function loginUser(dataToSubmit){

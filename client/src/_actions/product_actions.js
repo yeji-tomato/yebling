@@ -1,11 +1,9 @@
-// import axios from 'axios'
 import { PRODUCT_SERVER } from './config'
 import {
     IMAGE_PRODUCT,
     UPLOAD_PRODUCT,
     GOODS_PRODUCT,
 }   from './types';
-// axios.defaults.baseURL = process.env.NODE_ENV === 'development' ? '/' : 'https://yebling.herokuapp.com/';
 import { url } from '../utils/axios';
 
 export function imageProduct(dataToSubmit){
@@ -30,7 +28,7 @@ export function uploadProduct(dataToSubmit){
 
 export function goodsProduct(dataToSubmit){
 
-    const request = url.post(`${PRODUCT_SERVER}/goods`, { withCredentials: true }, dataToSubmit)
+    const request = url.post(`${PRODUCT_SERVER}/goods`, dataToSubmit)
         .then(response => response.data )
     return {
         type: GOODS_PRODUCT,
