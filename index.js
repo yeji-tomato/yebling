@@ -2,7 +2,7 @@ const express = require('express')
 const app = express()
 const cookieParser = require('cookie-parser')
 const config = require('./server/config/key')
-// const cors = require('cors');
+const cors = require('cors');
 
 // let corsOptions = process.env.NODE_ENV === 'production' ? 
 // {
@@ -31,6 +31,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.use(cookieParser())
 // app.use(cors(corsOptions)); 
+app.use(cors()); 
 
 
 const mongoose = require('mongoose');
