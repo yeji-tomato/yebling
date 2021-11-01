@@ -8,4 +8,4 @@ module.exports = function(app){
             changeOrigin: true,
         })
     )
-}
+} 
