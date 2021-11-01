@@ -6,7 +6,7 @@ const cors = require('cors');
 
 let corsOptions = process.env.NODE_ENV === 'production' ? 
 {
-    origin: 'https://yebling.netlify.app',
+    origin: 'https://yebling.herokuapp.com',
     credentials: true,
     
 } : 
