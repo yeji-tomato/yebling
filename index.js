@@ -4,24 +4,24 @@ const cookieParser = require('cookie-parser')
 const config = require('./server/config/key')
 const cors = require('cors');
 
-// let corsOptions = process.env.NODE_ENV === 'production' ? 
-// {
-//     origin: 'https://yebling.herokuapp.com',
-//     credentials: true,
+let corsOptions = process.env.NODE_ENV === 'production' ? 
+{
+    origin: 'https://yebling.herokuapp.com',
+    credentials: true,
     
-// } : 
-// {
-//     origin: 'http://localhost:3000',
-//     credentials: true,    
-// }
+} : 
+{
+    origin: 'http://localhost:3000',
+    credentials: true,    
+}
 
 
 app.use(express.urlencoded({ extended: true })) 
 // application/json
 app.use(express.json())
 app.use(cookieParser())
-app.use(cors({ origin: true, credentials: true }));
-// app.use(cors(corsOptions)); 
+// app.use(cors({ origin: true, credentials: true }));
+app.use(cors(corsOptions)); 
 // app.use(cors()); 
 
 
