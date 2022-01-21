@@ -35,12 +35,12 @@ const Delete = styled(DeleteFilled)`
 
 function CartTable(props) {
 
-    let src = process.env.NODE_ENV === 'production' ? `https://yebling.herokuapp.com/` : `http://localhost:5000/`
+    // let src = process.env.NODE_ENV === 'production' ? `https://yebling.herokuapp.com/` : `http://localhost:5000/`
 
     const renderCartImage = (images) => {
         if (images.length > 0) {
             let image = images[0]
-            return `${src}${image}`
+            return `https://yebling.herokuapp.com/${image}`
         }
     }
 

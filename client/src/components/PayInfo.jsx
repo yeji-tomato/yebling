@@ -19,7 +19,7 @@ function PayInfo() {
         }
     }, [user.userData])
 
-    let src = process.env.NODE_ENV === 'production' ? `https://yebling.herokuapp.com/` : `http://localhost:5000/`
+    // let src = process.env.NODE_ENV === 'production' ? `https://yebling.herokuapp.com/` : `http://localhost:5000/`
     console.log(Data, 'Data')
 
     return (
@@ -40,7 +40,7 @@ function PayInfo() {
                 <img
                     width={200}
                     alt="logo"
-                    src={`${src}${item.image}`}
+                    src={`https://yebling.herokuapp.com/${item.image}`}
                 />
                 }
             >

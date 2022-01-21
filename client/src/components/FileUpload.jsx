@@ -65,7 +65,7 @@ function FileUpload({refreshFunction}) {
         message.info(`${imgName}가 삭제되었습니다.`);
     }
 
-    let src = process.env.NODE_ENV === 'production' ? `https://yebling.herokuapp.com/` : `http://localhost:5000/`
+    // let src = process.env.NODE_ENV === 'production' ? `https://yebling.herokuapp.com/` : `http://localhost:5000/`
 
 
     return (
@@ -73,7 +73,7 @@ function FileUpload({refreshFunction}) {
             <div style={Img}>
             {Image.map((image, index) => (
                     <div key={index} style={{position: 'relative'}}>
-                        <img src={`${src}${image}`} alt={`${index}`} 
+                        <img src={`https://yebling.herokuapp.com/${image}`} alt={`${index}`} 
                         style={{width: '100%', height: '50vw'}}/>
                         <Delete onClick={() => deleteHandler(image)}/>
                     </div>

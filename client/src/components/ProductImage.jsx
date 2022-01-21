@@ -3,7 +3,7 @@ import { Carousel, Image } from 'antd';
 
 function ProductImage(props) {
 
-    let address = process.env.NODE_ENV === 'production' ? `https://yebling.herokuapp.com/` : `http://localhost:5000/`
+    // let address = process.env.NODE_ENV === 'production' ? `https://yebling.herokuapp.com/` : `http://localhost:5000/`
 
     const [Images, setImages] = useState([])
 
@@ -12,12 +12,12 @@ function ProductImage(props) {
             let images = []
             props.detail.images.map(item => (
                 images.push({
-                    original: `${address}${item}`
+                    original: `https://yebling.herokuapp.com/${item}`
                 })
             ))
                 setImages(images)
             }
-    }, [address, props.detail])
+    }, [props.detail])
 
     console.log('Images',Images[0])
 
