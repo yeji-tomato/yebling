@@ -14,12 +14,11 @@ import {
     ON_SUCCESS_BUY
 } from './types';
 import { USER_SERVER } from './config';
-// import { url } from '../utils/axios';
 import axios from 'axios'
 
 export function loginUser(dataToSubmit){
 
-    const request = axios.post(`${USER_SERVER}/login`, dataToSubmit)
+    const request = axios.post(`${USER_SERVER}/login`, dataToSubmit, { withCredentials: true })
         .then(response => response.data )
     return {
         type: LOGIN_USER,
@@ -29,7 +28,7 @@ export function loginUser(dataToSubmit){
 
 export function findId(dataToSubmit){
 
-    const request = axios.post(`${USER_SERVER}/findId`, dataToSubmit)
+    const request = axios.post(`${USER_SERVER}/findId`, dataToSubmit, { withCredentials: true })
         .then(response => response.data )
     return {
         type: FIND_ID,
@@ -39,7 +38,7 @@ export function findId(dataToSubmit){
 
 export function findPw(dataToSubmit){
 
-    const request = axios.post(`${USER_SERVER}/findPw`, dataToSubmit)
+    const request = axios.post(`${USER_SERVER}/findPw`, dataToSubmit, { withCredentials: true })
         .then(response => response.data )
     return {
         type: FIND_PW,
@@ -49,7 +48,7 @@ export function findPw(dataToSubmit){
 
 export function updatePw(dataToSubmit){
 
-    const request = axios.post(`${USER_SERVER}/updatePw`, dataToSubmit)
+    const request = axios.post(`${USER_SERVER}/updatePw`, dataToSubmit, { withCredentials: true })
         .then(response => response.data )
     return {
         type: UPDATE_PW,
@@ -59,7 +58,7 @@ export function updatePw(dataToSubmit){
 
 export function registerUser(dataToSubmit){
 
-    const request = axios.post(`${USER_SERVER}/register`, dataToSubmit)
+    const request = axios.post(`${USER_SERVER}/register`, dataToSubmit, { withCredentials: true })
         .then(response => response.data )
     return {
         type: REGISTER_USER,
@@ -69,7 +68,7 @@ export function registerUser(dataToSubmit){
 
 export function editUser(dataToSubmit){
 
-    const request = axios.post(`${USER_SERVER}/edit`, dataToSubmit)
+    const request = axios.post(`${USER_SERVER}/edit`, dataToSubmit, { withCredentials: true })
         .then(response => response.data )
     return {
         type: EDIT_USER,
@@ -78,7 +77,7 @@ export function editUser(dataToSubmit){
 }
 
 export function auth(){
-    const request = axios.get(`${USER_SERVER}/auth`)
+    const request = axios.get(`${USER_SERVER}/auth`, { withCredentials: true })
     .then(response => response.data )
     return {
         type: AUTH_USER,
@@ -87,7 +86,7 @@ export function auth(){
 }
 
 export function logoutUser() {
-    const request = axios.get(`${USER_SERVER}/logout`)
+    const request = axios.get(`${USER_SERVER}/logout`, { withCredentials: true })
         .then(response => response.data);
 
     return {
@@ -103,7 +102,7 @@ export function addToCart(id) {
         productId : id
     }
 
-    const request = axios.post(`${USER_SERVER}/addToCart`, body)
+    const request = axios.post(`${USER_SERVER}/addToCart`, body, { withCredentials: true })
         .then(response => response.data);
 
     return {
