@@ -4,7 +4,6 @@ import {
     UPLOAD_PRODUCT,
     GOODS_PRODUCT,
 }   from './types';
-// import { url } from '../utils/axios';
 import axios from 'axios'
 
 export function imageProduct(dataToSubmit){
