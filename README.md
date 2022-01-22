@@ -1,7 +1,7 @@
 # yebling
 [React · Node.js · MongoDB] 반응형 쇼핑몰 웹 사이트!
 
-<!-- ### 📊 admin
+### 📊 admin
 ```
 id : admin
 password : admin1234!
@@ -10,14 +10,13 @@ password : admin1234!
 ```
 id : user01
 password : pass1234!
-``` -->
+```
 
-<!-- ## Deployment / 배포 -->
-<!-- ※ 현재는 로그인, 로그아웃, 회원가입 기능만 완성되어있습니다! <br> -->
-<!-- [YEBLING<br>
-![image](https://user-images.githubusercontent.com/59958929/131241441-0aa12cef-57a7-4d43-9b7b-5b823b32b48a.png)](https://yebling.herokuapp.com/) -->
+## Deployment / 배포
 [YEBLING<br>
-![ezgif com-gif-maker (27)](https://user-images.githubusercontent.com/59958929/136686363-840ea433-99b7-4a33-a543-09725499c157.gif)](https://yebling.herokuapp.com/)
+![image](https://user-images.githubusercontent.com/59958929/131241441-0aa12cef-57a7-4d43-9b7b-5b823b32b48a.png)](https://yebling.herokuapp.com/)
+<!-- [YEBLING<br>
+![ezgif com-gif-maker (27)](https://user-images.githubusercontent.com/59958929/136686363-840ea433-99b7-4a33-a543-09725499c157.gif)](https://yebling.herokuapp.com/) -->
 
 
 ## 기능 소개
