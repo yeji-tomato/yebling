@@ -9,13 +9,16 @@ const cookieParser = require("cookie-parser");
 const config = require("./config/key");
 
 const mongoose = require("mongoose");
-mongoose.connect(config.mongoURI,
-  {
-    useNewUrlParser: true, useUnifiedTopology: true,
-    useCreateIndex: true, useFindAndModify: false
-  })
-  .then(() => console.log('MongoDB Connected...'))
-  .catch(err => console.log(err));
+const MongoConnect = async () => {
+  await mongoose.connect(config.mongoURI,
+    {
+      useNewUrlParser: true, useUnifiedTopology: true,
+      useCreateIndex: true, useFindAndModify: false
+    })
+    .then(() => console.log('MongoDB Connected...'))
+    .catch(err => console.log(err));
+}
+MongoConnect()
 
 app.use(cors({
   origin: true,
